@@ -1,0 +1,2 @@
+# jjdxmbaseutils
+自定义的jjdxmbaseutils常用的工具类使用说明
