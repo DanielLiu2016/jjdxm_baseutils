@@ -60,7 +60,7 @@ public class ChinaCityDao {
         db.close();
         if (list.size() > 0) {
             DataSupport.saveAll(list);
-            LogUtils.tag(tag).log("复制地区表信息成功！");
+            LogUtils.logTagName(tag).log("复制地区表信息成功！");
         }
     }
 
@@ -86,7 +86,7 @@ public class ChinaCityDao {
         db.close();
         if (list.size() > 0) {
             DataSupport.saveAll(list);
-            LogUtils.tag(tag).log("复制城市表信息成功！");
+            LogUtils.logTagName(tag).log("复制城市表信息成功！");
         }
     }
 
@@ -111,7 +111,7 @@ public class ChinaCityDao {
         db.close();
         if (list.size() > 0) {
             DataSupport.saveAll(list);
-            LogUtils.tag(tag).log("复制省份表信息成功！");
+            LogUtils.logTagName(tag).log("复制省份表信息成功！");
         }
     }
 }

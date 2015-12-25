@@ -351,9 +351,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                         return true;
                     case MotionEvent.ACTION_UP:
                         mBtnSendVoice.setBackgroundResource(R.mipmap.chat_send_voice_big);
-                        LogUtils.tag(tag).log("stop record");
+                        LogUtils.logTagName(tag).log("stop record");
                         if (stopRecording() == false) {
-                            LogUtils.tag(tag).log("recording ret false");
+                            LogUtils.logTagName(tag).log("recording ret false");
                             return true;
                         }
                         sendFile(mPttFile.getAbsolutePath(), TIMElemType.Sound);
@@ -383,13 +383,13 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 // TODO Auto-generated method stub
                 switch (scrollState) {
                     case OnScrollListener.SCROLL_STATE_IDLE:
-                        LogUtils.tag(tag).log(view.getFirstVisiblePosition() + ":" + mIsLoading + ":" + mBMore);
+                        LogUtils.logTagName(tag).log(view.getFirstVisiblePosition() + ":" + mIsLoading + ":" + mBMore);
                         if (view.getFirstVisiblePosition() == 0 && !mIsLoading && mBMore) {
                             mPBLoadData.setVisibility(View.VISIBLE);
                             mBNerverLoadMore = false;
                             mIsLoading = true;
                             mLoadMsgNum += MAX_PAGE_NUM;
-                            LogUtils.tag(tag).log("num:" + mLoadMsgNum);
+                            LogUtils.logTagName(tag).log("num:" + mLoadMsgNum);
                             getMessage();
 
 //						mIsLoading = false;
@@ -436,7 +436,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         for (int i = 0; i < emojis.size(); i++) {
             GridView view = new GridView(getBaseContext());
             EmojiAdapter adapter = new EmojiAdapter(getBaseContext(), emojis.get(i));
-            //	LogUtils.tag(tag).log("InitViewPager:" + emojis.get(i).size());
             view.setAdapter(adapter);
             emojiAdapters.add(adapter);
             view.setOnItemClickListener(new OnItemClickListener() {
@@ -528,7 +527,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         if (cn.getClassName().contains(tag)) {
             isTop = true;
         }
-        LogUtils.tag(tag).log("is Top Activity:" + isTop);
+        LogUtils.logTagName(tag).log("is Top Activity:" + isTop);
         return isTop;
     }
 
@@ -537,7 +536,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         @Override
         public boolean onNewMessages(List<TIMMessage> arg0) {
             // TODO Auto-generated method stub
-            LogUtils.tag(tag).log("new messge listnener:" + arg0.size());
+            LogUtils.logTagName(tag).log("new messge listnener:" + arg0.size());
 
             if (isTopActivity()) {
                 for (TIMMessage msg : arg0) {
@@ -571,7 +570,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
     }
 
     public void onBack(View view) {
-        LogUtils.tag(tag).log("finish:" + mStrPeerName);
+        LogUtils.logTagName(tag).log("finish:" + mStrPeerName);
         setResult(0, new Intent().putExtra("itemPos", itemPos));
         finish();
     }
@@ -715,15 +714,15 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
     }
 
     private void getMessage() {
-        LogUtils.tag(tag).log("getMessage begin");
+        LogUtils.logTagName(tag).log("getMessage begin");
         if (conversation == null) {
-            LogUtils.tag(tag).log("conversation null");
+            LogUtils.logTagName(tag).log("conversation null");
             return;
         }
         conversation.getMessage(mLoadMsgNum, null, new TIMValueCallBack<List<TIMMessage>>() {
             @Override
             public void onError(int code, String desc) {
-                LogUtils.tag(tag).log("get msgs failed:" + code + ":" + desc);
+                LogUtils.logTagName(tag).log("get msgs failed:" + code + ":" + desc);
                 mPBLoadData.setVisibility(View.GONE);
                 mIsLoading = false;
             }
@@ -732,7 +731,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             public void onSuccess(List<TIMMessage> msgs) {
 
                 final List<TIMMessage> tmpMsgs = msgs;
-                LogUtils.tag(tag).log("getMessage success:" + msgs.size() + "|" + mLoadMsgNum + "|mIsLoading:" + mIsLoading);
+                LogUtils.logTagName(tag).log("getMessage success:" + msgs.size() + "|" + mLoadMsgNum + "|mIsLoading:" + mIsLoading);
                 if (msgs.size() > 0) {
                     conversation.setReadMessage(msgs.get(0));
                 }
@@ -748,7 +747,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                             continue;
                         }
                         if (msg.status() == TIMMessageStatus.HasDeleted) {
-                            //	LogUtils.tag(tag).log("deleted msg:" + msg.getSender() +":" + msg.getMsgId() +":" );
                             continue;
                         }
                         ChatEntity entity = new ChatEntity();
@@ -781,7 +779,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
     }
 
     private void sendMsgContent(TIMMessage msg) {
-        LogUtils.tag(tag).log("ready send  msg");
+        LogUtils.logTagName(tag).log("ready send  msg");
         conversation.sendMessage(msg, new TIMValueCallBack<TIMMessage>() {//发送消息回调
             @Override
             public void onError(int code, String desc) {//发送消息失败
@@ -792,14 +790,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 } else if (code == QQIMParamsConfig.SEND_MSG_FAILED_FOR_PEER_NOT_LOGIN) {
                     desc = "对方账号不存在或未登陆过！";
                 }
-                LogUtils.tag(tag).log("send message failed. code: " + code + " errmsg: " + desc);
+                LogUtils.logTagName(tag).log("send message failed. code: " + code + " errmsg: " + desc);
                 Toast.makeText(getBaseContext(), "发送消息失败. code: " + code + " errmsg: " + desc, Toast.LENGTH_SHORT).show();
                 getMessage();
             }
 
             @Override
             public void onSuccess(TIMMessage arg0) {
-                LogUtils.tag(tag).log("Send text Msg ok");
+                LogUtils.logTagName(tag).log("Send text Msg ok");
                 getMessage();
 
             }
@@ -828,7 +826,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         elem.setText(str);
         int iRet = msg.addElement(elem);
         if (iRet != 0) {
-            LogUtils.tag(tag).log("add element error:" + iRet);
+            LogUtils.logTagName(tag).log("add element error:" + iRet);
             return;
         }
         sendMsgContent(msg);
@@ -852,7 +850,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             String path = cursor.getString(column_index);
             return path;
         } catch (Exception e) {
-            LogUtils.tag(tag).log("FOR_SELECT_PHOTO Exception:" + e.toString());
+            LogUtils.logTagName(tag).log("FOR_SELECT_PHOTO Exception:" + e.toString());
             return null;
         } finally {
             if (cursor != null) {
@@ -865,16 +863,16 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtils.tag(tag).log("WL_DEBUG onActivityResult requestCode " + requestCode);
+        LogUtils.logTagName(tag).log("WL_DEBUG onActivityResult requestCode " + requestCode);
         if (resultCode == RESULT_OK) {
             if (requestCode == FOR_START_CAMERA) {
                 if (mStrPhotoPath == null || mStrPhotoPath.length() == 0) {
-                    LogUtils.tag(tag).log("mStrPhotoPath null");
+                    LogUtils.logTagName(tag).log("mStrPhotoPath null");
                     return;
                 }
                 File file = new File(mStrPhotoPath);
                 if (file == null || !file.exists()) {
-                    LogUtils.tag(tag).log("mStrPhotoPath file not exists");
+                    LogUtils.logTagName(tag).log("mStrPhotoPath file not exists");
                     return;
                 }
                 Intent intent = new Intent(ChatMsgActivity.this, PhotoPreviewActivity.class);
@@ -909,7 +907,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 if (data != null) {
                     boolean bOrg = data.getBooleanExtra("pic_org", false);
                     String filePath = data.getStringExtra("filePath");
-                    LogUtils.tag(tag).log("pic org:" + bOrg + ":" + filePath);
+                    LogUtils.logTagName(tag).log("pic org:" + bOrg + ":" + filePath);
                     if (filePath == null) {
                         return;
                     }
@@ -951,10 +949,10 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                     filePath = originalUri.getPath();
                 }
                 if (filePath != null) {
-                    LogUtils.tag(tag).log("ready send file:" + filePath);
+                    LogUtils.logTagName(tag).log("ready send file:" + filePath);
                     sendFile(filePath, TIMElemType.File);
                 } else {
-                    LogUtils.tag(tag).log("file name null");
+                    LogUtils.logTagName(tag).log("file name null");
                 }
             }
 
@@ -965,14 +963,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             final int pos = data.getIntExtra("item", -1);
             ChatEntity entity = (ChatEntity) adapter.getItem(pos);
             if (entity == null) {
-                LogUtils.tag(tag).log("get msg null:" + pos);
+                LogUtils.logTagName(tag).log("get msg null:" + pos);
                 return;
             }
             if (resultCode == RESULT_CHAT_MENU_COPY) {
-                LogUtils.tag(tag).log("copy msg:" + pos);
+                LogUtils.logTagName(tag).log("copy msg:" + pos);
                 TIMTextElem elem = (TIMTextElem) entity.getElem();
                 if (elem != null) {
-                    LogUtils.tag(tag).log("get msg:" + elem.getText());
+                    LogUtils.logTagName(tag).log("get msg:" + elem.getText());
                     mClipboard.setText(elem.getText());
                 }
 
@@ -983,14 +981,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 TIMMessage msg = entity.getMessage();
                 if (msg.remove()) {
                     listChatEntity.remove(pos);
-                    LogUtils.tag(tag).log("delete msg succ:" + msg.getSender() + ":" + msg.getMsgId());
+                    LogUtils.logTagName(tag).log("delete msg succ:" + msg.getSender() + ":" + msg.getMsgId());
                 } else {
-                    LogUtils.tag(tag).log("delete msg error:" + msg.getSender() + ":" + msg.getMsgId());
+                    LogUtils.logTagName(tag).log("delete msg error:" + msg.getSender() + ":" + msg.getMsgId());
                 }
                 adapter.notifyDataSetChanged();
                 mListView.requestFocusFromTouch();
                 mListView.setSelection(pos - 1);
-                LogUtils.tag(tag).log("delete msg:" + pos);
+                LogUtils.logTagName(tag).log("delete msg:" + pos);
             } else if (resultCode == RESULT_CHAT_MENU_RESEND) {
                 TIMMessage msg = entity.getMessage();
                 sendMsgContent(msg);
@@ -1006,14 +1004,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 TIMMessage msg = entity.getMessage();
                 if (msg.remove()) {
                     listChatEntity.remove(pos);
-                    LogUtils.tag(tag).log("delete msg succ:" + msg.getSender() + ":" + msg.getMsgId());
+                    LogUtils.logTagName(tag).log("delete msg succ:" + msg.getSender() + ":" + msg.getMsgId());
                 } else {
-                    LogUtils.tag(tag).log("delete msg error:" + msg.getSender() + ":" + msg.getMsgId());
+                    LogUtils.logTagName(tag).log("delete msg error:" + msg.getSender() + ":" + msg.getMsgId());
                 }
                 adapter.notifyDataSetChanged();
                 mListView.requestFocusFromTouch();
                 mListView.setSelection(pos - 1);
-                LogUtils.tag(tag).log("delete msg:" + pos);
+                LogUtils.logTagName(tag).log("delete msg:" + pos);
             } else if (resultCode == RESULT_CHAT_MENU_RESEND) {
                 TIMMessage msg = entity.getMessage();
                 sendMsgContent(msg);
@@ -1031,7 +1029,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             @Override
             public void onError(int arg0, String arg1) {
                 // TODO Auto-generated method stub
-                LogUtils.tag(tag).log("save file error:" + arg0 + ":" + arg1);
+                LogUtils.logTagName(tag).log("save file error:" + arg0 + ":" + arg1);
             }
 
             @Override
@@ -1052,7 +1050,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                     FileOutputStream out = new FileOutputStream(fileName);
                     out.write(arg0);
                     out.close();
-                    LogUtils.tag(tag).log("save file ok:" + fileName + ":" + arg0.length);
+                    LogUtils.logTagName(tag).log("save file ok:" + fileName + ":" + arg0.length);
                     getMessage();
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -1089,7 +1087,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                     mPhotoFile.mkdirs();
                 }
                 mStrPhotoPath = QQIMParamsConfig.IMAG_DIR + getFileName() + ".jgp";
-                LogUtils.tag(tag).log("pic file path:" + mStrPhotoPath);
+                LogUtils.logTagName(tag).log("pic file path:" + mStrPhotoPath);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mStrPhotoPath)));
 //            	  ContentValues values = new ContentValues(); 
 //            	  photoUri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 
@@ -1133,9 +1131,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         }
         //从文件读取数据
         File f = new File(path);
-        LogUtils.tag(tag).log("file len:" + f.length());
+        LogUtils.logTagName(tag).log("file len:" + f.length());
         if (f.length() == 0) {
-            LogUtils.tag(tag).log("file empty!");
+            LogUtils.logTagName(tag).log("file empty!");
             return;
         }
         byte[] fileData = new byte[(int) f.length()];
@@ -1156,11 +1154,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         try {
             if (type == TIMElemType.Image) {
                 TIMImageElem elem = new TIMImageElem();
-                LogUtils.tag(tag).log("pic level:" + mPicLevel);
+                LogUtils.logTagName(tag).log("pic level:" + mPicLevel);
                 elem.setLevel(mPicLevel);
                 elem.setPath(path);
                 if (0 != msg.addElement(elem)) {
-                    LogUtils.tag(tag).log("add image element error");
+                    LogUtils.logTagName(tag).log("add image element error");
                     return;
                 }
             } else if (type == TIMElemType.Sound) {
@@ -1169,7 +1167,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 elem.setDuration(mPttRecordTime);
                 Log.d("TAG", "sound  size:" + fileData.length);
                 if (0 != msg.addElement(elem)) {
-                    LogUtils.tag(tag).log("add sound element error");
+                    LogUtils.logTagName(tag).log("add sound element error");
                     return;
                 }
             } else if (type == TIMElemType.File) {
@@ -1182,14 +1180,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 }
                 Log.d("TAG", "file size:" + fileData.length);
                 if (0 != msg.addElement(elem)) {
-                    LogUtils.tag(tag).log("add file element error");
+                    LogUtils.logTagName(tag).log("add file element error");
                     return;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LogUtils.tag(tag).log("ready send rich msg:" + type);
+        LogUtils.logTagName(tag).log("ready send rich msg:" + type);
         conversation.sendMessage(msg, new TIMValueCallBack<TIMMessage>() {
             //发送消息回调
             @Override
@@ -1198,7 +1196,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
                 //服务器返回了错误码code和错误描述desc，可用于定位请求失败原因
                 //错误码code列表请参见附录
 
-                LogUtils.tag(tag).log("send message failed. code: " + code + " errmsg: " + desc);
+                LogUtils.logTagName(tag).log("send message failed. code: " + code + " errmsg: " + desc);
                 if (code == QQIMParamsConfig.SEND_MSG_FAILED_FOR_PEER_NOT_LOGIN) {
                     desc = "对方账号不存在或未登陆过！";
                 }
@@ -1216,7 +1214,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             @Override
             public void onSuccess(TIMMessage msg) {
                 //发送消息成功
-                LogUtils.tag(tag).log("SendMsg ok");
+                LogUtils.logTagName(tag).log("SendMsg ok");
                 getMessage();
             }
         });
@@ -1231,7 +1229,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
         try {
             File file = new File("record_tmp.mp3");
             if (file.exists()) {
-                LogUtils.tag(tag).log("file exist");
+                LogUtils.logTagName(tag).log("file exist");
                 file.delete();
             }
             mPttFile = File.createTempFile("record_tmp", ".mp3");
@@ -1259,10 +1257,10 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             });
             mRecorder.start();
         } catch (IOException e) {
-            LogUtils.tag(tag).log("start record error" + e.getMessage());
+            LogUtils.logTagName(tag).log("start record error" + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
-            LogUtils.tag(tag).log("start record error2" + e.getMessage());
+            LogUtils.logTagName(tag).log("start record error2" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -1279,12 +1277,12 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             try {
                 mRecorder.stop();
             } catch (IllegalStateException e) {
-                LogUtils.tag(tag).log("stop Record error:" + e.getMessage());
+                LogUtils.logTagName(tag).log("stop Record error:" + e.getMessage());
                 mRecorder.release();
                 mRecorder = null;
                 return false;
             } catch (Exception e) {
-                LogUtils.tag(tag).log("stop Record Exception:" + e.getMessage());
+                LogUtils.logTagName(tag).log("stop Record Exception:" + e.getMessage());
                 mRecorder.release();
                 mRecorder = null;
                 return false;
@@ -1297,7 +1295,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
             Toast.makeText(this, "录音时间太短!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        LogUtils.tag(tag).log("time:" + SystemClock.elapsedRealtime());
+        LogUtils.logTagName(tag).log("time:" + SystemClock.elapsedRealtime());
         mPttRecordTime = mPttRecordTime / 1000;
         return true;
     }
@@ -1315,7 +1313,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener, Pu
 
     @Override
     public void onDestroy() {
-        LogUtils.tag(tag).log("onDestroy:" + this.mStrPeerName);
+        LogUtils.logTagName(tag).log("onDestroy:" + this.mStrPeerName);
         TIMManager.getInstance().removeMessageListener(msgListener);
         super.onDestroy();
     }

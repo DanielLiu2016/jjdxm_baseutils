@@ -10,18 +10,18 @@ public class QQUiListener implements IUiListener {
 
 	@Override
 	public void onComplete(Object o) {
-		LogUtils.tag(tag).log("");
+		LogUtils.logTagName(tag).log("");
 	}
 
 	@Override
 	public void onError(UiError e) {
-		LogUtils.tag(tag).log(
+		LogUtils.logTagName(tag).log(
 				"code:" + e.errorCode + ", msg:" + e.errorMessage + ", detail:"
 						+ e.errorDetail);
 	}
 
 	@Override
 	public void onCancel() {
-		LogUtils.tag(tag).log("onCancel");
+		LogUtils.logTagName(tag).log("onCancel");
 	}
 }

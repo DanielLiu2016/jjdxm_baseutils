@@ -43,14 +43,14 @@ public class SPTagName implements Serializable {
     }
 
     /**
-     * 添加键的内容
+     * 自定义文件添加键的内容
      */
     public void putData(Context context, String key, Object value) {
         SPUtils.putData(context, spName, key, value);
     }
 
     /**
-     * 获得键的内容
+     * 自定义文件获得键的内容
      */
     public Object getData(Context context, String key,
                           Object defValue) {
@@ -58,14 +58,14 @@ public class SPTagName implements Serializable {
     }
 
     /**
-     * 删除某个键的内容
+     * 自定义文件删除某个键的内容
      */
     public void remove(Context context, String key) {
         SPUtils.remove(context, spName, key);
     }
 
     /**
-     * 清空所有的键值对
+     * 自定义文件清空所有的键值对
      */
     public void clearAll(Context context) {
         SPUtils.clearAll(context, spName);

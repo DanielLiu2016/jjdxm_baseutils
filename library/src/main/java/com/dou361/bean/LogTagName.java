@@ -23,7 +23,7 @@ import com.dou361.utils.LogUtils;
  * <p/>
  * ========================================
  */
-public class TagName implements Serializable {
+public class LogTagName implements Serializable {
 
 	/**
 	 * 

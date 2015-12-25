@@ -2,7 +2,7 @@ package com.dou361.utils;
 
 import android.util.Log;
 
-import com.dou361.bean.TagName;
+import com.dou361.bean.LogTagName;
 
 import java.util.List;
 
@@ -21,7 +21,12 @@ public class LogUtils {
      * 当前日志是否输出
      */
     private static boolean mIsPrintLog = false;
-
+    /**
+     * 设置一级标签名称
+     */
+    public static void setFristTag(String flag) {
+        mTag = flag;
+    }
     /**
      * 设置日志输出状态
      */
@@ -76,10 +81,10 @@ public class LogUtils {
     /**
      * 添加二级Tag，该方法需要在打印日志的类中获得类对象，比较方便的是在类的父类中获取即可
      */
-    public static synchronized TagName tag(String tag) {
-        TagName mTagName = new TagName();
-        mTagName.setSecondTag(tag + "|<----->|>>");
-        return mTagName;
+    public static synchronized LogTagName logTagName(String tag) {
+        LogTagName mLogTagName = new LogTagName();
+        mLogTagName.setSecondTag(tag + "|<----->|>>");
+        return mLogTagName;
     }
 
     /**

@@ -12,6 +12,7 @@ import com.dou361.bean.CityBean;
 import com.dou361.bean.County;
 import com.dou361.bean.Province;
 import com.dou361.utils.ResourceUtils;
+import com.dou361.utils.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class CitySelectAdapter extends
         this.mCountyLists = mCountyLists;
         initData(0);
         inflater = LayoutInflater.from(context);
+
     }
 
     /**
