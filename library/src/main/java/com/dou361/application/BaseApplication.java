@@ -3,21 +3,7 @@ package com.dou361.application;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.dou361.download.DownloadManager;
-import com.dou361.download.DownloadModel;
-import com.dou361.download.SqliteManager;
-import com.dou361.third_im.Foreground;
-import com.dou361.third_im.IMData;
-import com.dou361.third_im.SDKHelper;
-import com.dou361.third_im.TLSHelper;
-import com.jingwang.eluxue_online.activity.FeedBackActivity;
-import com.umeng.fb.push.FeedbackPush;
-
 import org.litepal.LitePalApplication;
-
-import java.util.List;
 
 /**
  * ========================================
@@ -61,20 +47,6 @@ public class BaseApplication extends LitePalApplication {
      * 主线程Looper
      */
     private static Looper mMainLooper;
-    /**
-     * 下载的数据库管理
-     */
-    private SqliteManager manager;
-    /**
-     * volley框架对象
-     */
-    private RequestQueue mRequestQueue;
-
-    private SDKHelper helper = new SDKHelper();
-    private TLSHelper tlsHelper = new TLSHelper();
-    private boolean isBackground;
-
-    private IMData imdata;
 
     @Override
     public void onCreate() {
@@ -84,29 +56,8 @@ public class BaseApplication extends LitePalApplication {
         mMainLooper = getMainLooper();
         mInstance = this;
         super.onCreate();
-        /** im数据初始化 */
-        imdata = new IMData(this);
-        helper.init(this);
-        tlsHelper.init(this);
-        Foreground.init(this);
-        /** 意见反馈初始化 */
-        FeedbackPush.getInstance(this).init(FeedBackActivity.class, true);
-        /** 添加下载状态列表 */
-        manager = SqliteManager.getInstance(getApplicationContext());
-        List<DownloadModel> models = manager.getAllDownloadInfo();
-        DownloadManager.getInstance(getApplicationContext()).addStateMap(models);
         /** 在应用启动时回调，并且在其他组件被创建之前回调 */
         //Thread.setDefaultUncaughtExceptionHandler(new LogCatUncaughtExceptionHandler());
-    }
-
-    /**
-     * 获取网络请求队列
-     */
-    public RequestQueue getRequestQueue() {
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        }
-        return mRequestQueue;
     }
 
     /**
@@ -145,23 +96,5 @@ public class BaseApplication extends LitePalApplication {
         return mMainThreadHandler;
     }
 
-    /**
-     * 获取主线程的looper
-     */
-    public static Looper getMainThreadLooper() {
-        return mMainLooper;
-    }
-
-    public boolean getTestEnvSetting() {
-        return imdata.getTestEnvSetting();
-    }
-
-    public int getLogLevel() {
-        return imdata.getLogLevel();
-    }
-
-    public boolean getLogConsole() {
-        return imdata.getLogConsole();
-    }
 
 }

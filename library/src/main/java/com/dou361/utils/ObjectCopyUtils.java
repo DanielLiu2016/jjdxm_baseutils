@@ -1,7 +1,5 @@
 package com.dou361.utils;
 
-import com.jingwang.eluxue_online.bean.User;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 

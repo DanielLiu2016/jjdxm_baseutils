@@ -1,14 +1,14 @@
 package com.dou361.pool;
 
+import android.content.Context;
+import android.os.Environment;
+import android.os.SystemClock;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 
-import android.os.Environment;
-import android.os.SystemClock;
-
-import com.dou361.utils.SystemUtils;
 /**
  * ========================================
  * <p/>
@@ -31,27 +31,33 @@ import com.dou361.utils.SystemUtils;
  */
 public class LogCatUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
-	@Override
-	public void uncaughtException(Thread thread, Throwable ex) {
+    private Context context;
 
-		File path = new File(Environment.getExternalStorageDirectory()
-				.getAbsoluteFile()
-				+ File.separator
-				+ SystemUtils.getPackageName().substring(
-						SystemUtils.getPackageName().lastIndexOf(".") + 1));
-		if (!path.exists()) {
-			path.mkdirs();
-		}
-		File file = new File(path, SystemClock.uptimeMillis() + ".log");
-		try {
-			PrintWriter printWriter = new PrintWriter(file);
-			ex.printStackTrace(printWriter);
-			printWriter.flush();
-			printWriter.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		/** 出现错误后，直接杀死进程 */
-		android.os.Process.killProcess(android.os.Process.myPid());
-	}
+    public LogCatUncaughtExceptionHandler(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void uncaughtException(Thread thread, Throwable ex) {
+
+        File path = new File(Environment.getExternalStorageDirectory()
+                .getAbsoluteFile()
+                + File.separator
+                + context.getPackageName().substring(
+                context.getPackageName().lastIndexOf(".") + 1));
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File file = new File(path, SystemClock.uptimeMillis() + ".log");
+        try {
+            PrintWriter printWriter = new PrintWriter(file);
+            ex.printStackTrace(printWriter);
+            printWriter.flush();
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        /** 出现错误后，直接杀死进程 */
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 }

@@ -1,6 +1,8 @@
 package com.dou361.adapter;
 
+import android.content.Context;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dou361.bean.Popu;
-import com.dou361.utils.UIUtils;
-import com.jingwang.eluxue_online.R;
+import com.dou361.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * ========================================
  * <p/>
@@ -35,66 +37,73 @@ import java.util.List;
  */
 public class PopuWindowAdapter extends BaseAdapter {
 
-	/** 供下拉的集合包括id */
-	List<Popu> list;
-	/** 调用者的Handler */
-	Handler mHandler;
-	/** 发送Handler的标志 */
-	private int what;
+    /**
+     * 供下拉的集合包括id
+     */
+    List<Popu> list;
+    /**
+     * 调用者的Handler
+     */
+    Handler mHandler;
+    /**
+     * 发送Handler的标志
+     */
+    private int what;
+    private LayoutInflater inflater;
 
-	public PopuWindowAdapter(Handler mHandler, int what,List<Popu> lists) {
-		list = lists;
-		this.mHandler = mHandler;
-		this.what = what;
-		if (list == null) {
-			list = new ArrayList<Popu>();
-		}
-	}
+    public PopuWindowAdapter(Context context, Handler mHandler, int what, List<Popu> lists) {
+        list = lists;
+        this.mHandler = mHandler;
+        this.what = what;
+        if (list == null) {
+            list = new ArrayList<Popu>();
+        }
+        inflater = LayoutInflater.from(context);
+    }
 
-	@Override
-	public int getCount() {
-		return list.size();
-	}
+    @Override
+    public int getCount() {
+        return list.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
-		if (convertView == null) {
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        if (convertView == null) {
 
-			holder = new ViewHolder();
+            holder = new ViewHolder();
+            convertView = inflater.inflate(ResourceUtils.getResourceIdByName("layout", "popu_option_item"), null);
 
-			convertView = UIUtils.inflate(R.layout.popu_option_item);
+            holder.textView = (TextView) convertView
+                    .findViewById(ResourceUtils.getResourceIdByName("id", "item_text"));
 
-			holder.textView = (TextView) convertView
-					.findViewById(R.id.item_text);
+            holder.imageView = (ImageView) convertView
+                    .findViewById(ResourceUtils.getResourceIdByName("id", "delImage"));
 
-			holder.imageView = (ImageView) convertView
-					.findViewById(R.id.delImage);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
+        holder.textView.setText(list.get(position).getTitle());
 
-		holder.textView.setText(list.get(position).getTitle());
-		
 
-		return convertView;
-	}
+        return convertView;
+    }
 
-	class ViewHolder {
-		TextView textView;
-		ImageView imageView;
-	}
+    class ViewHolder {
+        TextView textView;
+        ImageView imageView;
+    }
 
 }

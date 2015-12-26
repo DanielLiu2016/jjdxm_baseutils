@@ -1,8 +1,6 @@
 package com.dou361.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -11,7 +9,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,10 +17,8 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.dou361.application.BaseApplication;
-import com.jingwang.eluxue_online.activity.BaseActivity;
 
 public class UIUtils {
 
@@ -31,14 +26,7 @@ public class UIUtils {
      * 获取全局的上下文
      */
     public static Context getContext() {
-        return BaseApplication.getApplication();
-    }
-
-    /**
-     * 获取全局的主Activity
-     */
-    public static Activity getActivity() {
-        return BaseActivity.getCurrentActivity();
+        return UtilsManager.getInstance().getAppContext();
     }
 
     /**
@@ -102,7 +90,7 @@ public class UIUtils {
      */
     public static int getIdByName(String idName, String idType) {
         return getResources().getIdentifier(idName, idType,
-                SystemUtils.getPackageName());
+                getContext().getPackageName());
     }
 
     /**
@@ -183,185 +171,6 @@ public class UIUtils {
             runnable.run();
         } else {
             post(runnable);
-        }
-    }
-
-    /**
-     * 开启意图启动Activity
-     */
-    public static void startActivity(Intent intent) {
-        BaseActivity activity = BaseActivity.getForegroundActivity();
-        if (activity != null) {
-            activity.startActivity(intent);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(intent);
-        }
-    }
-
-    /**
-     * 开启意图启动Activity
-     */
-    public static void startActivity(Context context, Class<?> cls) {
-        Intent intent = new Intent(context, cls);
-        startActivity(intent);
-    }
-
-    /**
-     * 开启意图启动Activity
-     */
-    public static void startActivityForResult(Intent intent, int requestCode) {
-        BaseActivity activity = BaseActivity.getForegroundActivity();
-        if (activity != null) {
-            activity.startActivityForResult(intent, requestCode);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(intent);
-        }
-    }
-
-    /**
-     * 短时间中下位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastShort(final int resId) {
-        showToastShort(getString(resId));
-    }
-
-    /**
-     * 短时间中下位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastShort(final String str) {
-        if (isRunInMainThread()) {
-            showToast2Button(str, Toast.LENGTH_SHORT);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast2Button(str, Toast.LENGTH_SHORT);
-                }
-            });
-        }
-    }
-
-    /**
-     * 长时间中下位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastLong(final int resId) {
-        showToastLong(getString(resId));
-    }
-
-    /**
-     * 长时间中下位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastLong(final String str) {
-        if (isRunInMainThread()) {
-            showToast2Button(str, Toast.LENGTH_LONG);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast2Button(str, Toast.LENGTH_LONG);
-                }
-            });
-        }
-    }
-
-    /**
-     * 只定义一个Toast
-     */
-    private static Toast mToast;
-
-    /**
-     * 对toast的简易封装。线程不安全，不可以在非UI线程调用。
-     */
-    private static void showToast2Button(String str, int showTime) {
-
-        if (mToast == null) {
-            BaseActivity frontActivity = BaseActivity.getForegroundActivity();
-            if (frontActivity != null) {
-                mToast = Toast.makeText(frontActivity, str, showTime);
-            } else {
-                mToast = Toast.makeText(getContext(), str, showTime);
-            }
-        } else {
-            mToast.setText(str);
-        }
-        mToast.show();
-    }
-
-    /**
-     * 短时间居中位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastCenterShort(final int resId) {
-        showToastCenterShort(getString(resId));
-    }
-
-    /**
-     * 短时间居中位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastCenterShort(final String str) {
-        if (isRunInMainThread()) {
-            showToast2Center(str, Toast.LENGTH_SHORT);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast2Center(str, Toast.LENGTH_SHORT);
-                }
-            });
-        }
-    }
-
-    /**
-     * 长时间居中位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastCenterLong(final int resId) {
-        showToastCenterLong(getString(resId));
-    }
-
-    /**
-     * 长时间居中位置显示。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastCenterLong(final String str) {
-        if (isRunInMainThread()) {
-            showToast2Center(str, Toast.LENGTH_LONG);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast2Center(str, Toast.LENGTH_LONG);
-                }
-            });
-        }
-    }
-
-    /**
-     * 对toast的简易封装。线程不安全，不可以在非UI线程调用。
-     */
-    private static void showToast2Center(String str, int showTime) {
-        BaseActivity frontActivity = BaseActivity.getForegroundActivity();
-        if (frontActivity != null) {
-            Toast toast = Toast.makeText(frontActivity, str, showTime);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            /** 以下代码是双重显示 */
-            // LinearLayout toastView = (LinearLayout) toast.getView();
-            // TextView imageCodeProject = new TextView(
-            // getContext());
-            // imageCodeProject.setText(str);
-            // toastView.setGravity(Gravity.CENTER);
-            // toastView.addView(imageCodeProject, 0);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(getContext(), str, showTime);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            /** 以下代码是双重显示 */
-            // LinearLayout toastView = (LinearLayout) toast.getView();
-            // TextView imageCodeProject = new TextView(
-            // getContext());
-            // imageCodeProject.setText(str);
-            // toastView.setGravity(Gravity.CENTER);
-            // toastView.addView(imageCodeProject, 0);
-            toast.show();
         }
     }
 

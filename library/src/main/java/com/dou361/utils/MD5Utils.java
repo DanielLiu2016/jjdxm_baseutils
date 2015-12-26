@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * ========================================
  * <p/>
- * 版 权：jjdxmashl 版权所有 （C） 2015
+ * 版 权：dou361.com 版权所有 （C） 2015
  * <p/>
  * 作 者：陈冠明
  * <p/>

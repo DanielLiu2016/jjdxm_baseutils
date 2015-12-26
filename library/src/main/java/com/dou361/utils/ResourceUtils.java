@@ -1,4 +1,5 @@
 package com.dou361.utils;
+
 /**
  * ========================================
  * <p/>
@@ -54,6 +55,10 @@ public class ResourceUtils {
         }
 
         return id;
+    }
+
+    public static int[] getResourceArraryIdByName(String className, String name) {
+        return UtilsManager.getInstance().getAppContext().getResources().getIntArray(getResourceIdByName(className, name));
     }
 
 }

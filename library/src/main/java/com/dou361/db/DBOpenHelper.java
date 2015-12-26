@@ -4,11 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.jingwang.eluxue_online.utils.SystemConfig;
 /**
  * ========================================
  * <p/>
- * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
+ * 版 权：dou361.com 版权所有 （C） 2015
  * <p/>
  * 作 者：陈冠明
  * <p/>
@@ -27,34 +26,67 @@ import com.jingwang.eluxue_online.utils.SystemConfig;
  */
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-	/**
-	 * 表创建语句
-	 */
-	private static String dbName = SystemConfig.Chinacity_DB_Name;
-	private static int dbVersion = SystemConfig.Default_DB_Version;
+    /**
+     * 默认数据库
+     */
+    private static String defalut_dbName = "dou361.db";
+    /**
+     * 默认版本号
+     */
+    private static int defalut_dbVersion = 1;
+    /**
+     * 表创建语句
+     */
+    private String strSql;
 
-	/**
-	 * @param context
-	 *            上下文
-	 * @param dbName
-	 *            数据库
-	 * @param sql
-	 *            表创建语句
-	 */
-	public DBOpenHelper(Context context) {
-		super(context, dbName, null, dbVersion);
-	}
-	
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		/**
-		 * 初始化表结构
-		 */
-	}
+    /**
+     * @param context 上下文
+     */
+    public DBOpenHelper(Context context) {
+        this(context, defalut_dbName, null, defalut_dbVersion);
+    }
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    /**
+     * @param context 上下文
+     * @param dbName  数据库
+     */
+    public DBOpenHelper(Context context, String dbName) {
+        this(context, dbName, null, defalut_dbVersion);
+    }
 
-	}
+    /**
+     * @param context 上下文
+     * @param dbName  数据库
+     * @param sql     表创建语句
+     */
+    public DBOpenHelper(Context context, String dbName, String sql) {
+        this(context, dbName, sql, defalut_dbVersion);
+    }
+
+    /**
+     * @param context 上下文
+     * @param dbName  数据库
+     * @param sql     表创建语句
+     * @param version 版本号
+     */
+    public DBOpenHelper(Context context, String dbName, String sql, int version) {
+        super(context, dbName, null, version);
+        this.strSql = sql;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        /**
+         * 初始化表结构
+         */
+        if (strSql != null && !"".equals(strSql)) {
+            db.execSQL(strSql);
+        }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
 
 }

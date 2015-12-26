@@ -16,11 +16,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.jingwang.eluxue_online.R;
+import com.dou361.utils.ResourceUtils;
+
 /**
  * ========================================
  * <p/>
- * 版 权：深圳市晶网电子科技有限公司 版权所有 （C） 2015
+ * 版 权：dou361.com 版权所有 （C） 2015
  * <p/>
  * 作 者：陈冠明
  * <p/>
@@ -90,7 +91,7 @@ public class PullDoorView extends RelativeLayout {
 		mImgView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT));
 		mImgView.setScaleType(ImageView.ScaleType.FIT_XY);// 填充整个屏幕
-		mImgView.setImageResource(R.mipmap.bg3); // 默认背景
+		mImgView.setImageResource(ResourceUtils.getResourceIdByName("mipmap","bg3")); // 默认背景
 		addView(mImgView);
 	}
 
