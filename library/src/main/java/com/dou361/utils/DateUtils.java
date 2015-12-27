@@ -28,6 +28,10 @@ import java.util.Locale;
  */
 public class DateUtils {
 
+    private DateUtils(){
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 输入日期获取对应的日期
      *
@@ -182,6 +186,7 @@ public class DateUtils {
         public static String DATE = "DATE";
         public static String DATETIME = "DATETIME";
         public static String sdf_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+        public static String sdf_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
         public static String sdf_yyyy_MM_dd = "yyyy-MM-dd";
         public static String sdf_HH_mm_ss = "HH:mm:ss";
         public static String sdf_yyyy = "yyyy";

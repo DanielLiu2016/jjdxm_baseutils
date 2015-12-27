@@ -669,7 +669,7 @@ public class PullToRefreshView extends LinearLayout {
      */
     public void onHeaderRefreshCompleteAndTime() {
         setLastUpdated("上次更新："
-                + DateUtils.longDateToString(DateUtils.sdf_yyyy_MM_dd_HH_mm,
+                + DateUtils.getData(DateUtils.DateType.sdf_yyyy_MM_dd_HH_mm,
                 System.currentTimeMillis()));
         onHeaderRefreshComplete();
     }

@@ -68,6 +68,10 @@ public class LogUtils {
      */
     private static final Object mLogLock = new Object();
 
+    private LogUtils(){
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 根据当前级别mDebuggable的形式输出LOG，并且打印异常信息
      */

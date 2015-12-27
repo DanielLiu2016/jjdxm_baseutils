@@ -9,6 +9,10 @@ import java.util.List;
  **/
 public class ListUtils {
 
+	private ListUtils(){
+		throw new UnsupportedOperationException("cannot be instantiated");
+	}
+
 	/** 判断集合是否为空 */
 	public static boolean isEmpty(List<Object> list) {
 

@@ -23,7 +23,8 @@ package com.dou361.utils;
 public class ResourceUtils {
     private static final String TAG = ResourceUtils.class.getSimpleName();
 
-    public ResourceUtils() {
+    private ResourceUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**

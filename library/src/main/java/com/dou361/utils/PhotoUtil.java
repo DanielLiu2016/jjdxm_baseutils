@@ -20,6 +20,10 @@ import android.media.ThumbnailUtils;
 
 public class PhotoUtil {
 
+	private PhotoUtil() {
+		throw new UnsupportedOperationException("cannot be instantiated");
+	}
+
 	/**
 	 * 回收垃圾 recycle
 	 * 

@@ -21,6 +21,11 @@ package com.dou361.utils;
  * ========================================
  */
 public class FileUtils {
+
+    private FileUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     public static void writeFile(String s, String path, boolean append) {
 
     }

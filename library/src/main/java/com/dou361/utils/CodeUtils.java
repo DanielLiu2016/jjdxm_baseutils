@@ -28,18 +28,24 @@ public class CodeUtils {
     private String defaultMsg = "";
     private static CodeUtils mCodeUtils;
 
+    private CodeUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 单例模式
      */
     public static CodeUtils getInstance() {
         if (mCodeUtils == null) {
-            mCodeUtils = new CodeUtils();
+            mCodeUtils = new CodeUtils(true);
         }
         return mCodeUtils;
     }
 
-    public CodeUtils() {
-        initData();
+    public CodeUtils(boolean flag) {
+        if (flag) {
+            initData();
+        }
     }
 
     /**

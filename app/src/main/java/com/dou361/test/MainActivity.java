@@ -5,9 +5,12 @@ import android.view.View;
 
 import com.dou361.R;
 import com.dou361.utils.CodeUtils;
+import com.dou361.utils.DateUtils;
 import com.dou361.utils.LogUtils;
 import com.dou361.utils.SPUtils;
 import com.dou361.utils.UtilsManager;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         SPUtils.putData(this, "ceshi", "1992");
         SPUtils.spTagName("ming").putData(this, "ceshi", "1992");
         CodeUtils.getInstance().getMessage(200);
+        DateUtils.getData(DateUtils.DateType.sdf_yyyy_MM_dd,new Date());
 
     }
 }

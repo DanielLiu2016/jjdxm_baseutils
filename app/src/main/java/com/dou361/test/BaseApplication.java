@@ -31,6 +31,6 @@ public class BaseApplication extends Application{
         super.onCreate();
         UtilsManager.init(this, "");
         UtilsManager.getInstance().setDebugEnv(true);
-//        UtilsManager.getInstance().setLogLevel(LogUtils.LogType.LEVEL_ERROR);
+        UtilsManager.getInstance().setLogLevel(LogUtils.LogType.LEVEL_ERROR);
     }
 }

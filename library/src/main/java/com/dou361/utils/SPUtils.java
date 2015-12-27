@@ -49,6 +49,10 @@ public class SPUtils {
      */
     private static final String SP_NAME = "config";
 
+    private SPUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 初始化SharedPreferences
      */

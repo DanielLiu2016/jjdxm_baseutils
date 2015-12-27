@@ -25,6 +25,10 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
 
+    private RegexUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /** 根据正则表达式返还匹配结果 */
     private static boolean matcherString(String value, String strRegex) {
         Pattern p = Pattern.compile(strRegex);
@@ -33,7 +37,7 @@ public class RegexUtils {
     }
 
     /**
-     * 非特殊字符
+     * 匹配非特殊字符
      */
     public static boolean matcherIllegal(String value) {
         String str = "^([a-zA-Z0-9]|[._]|[\\u4E00-\\u9FA5]){1,20}$";
@@ -41,7 +45,7 @@ public class RegexUtils {
     }
 
     /**
-     * 字母、数字、下划线
+     * 匹配字母、数字、下划线
      */
     public static boolean matcherPassword(String value) {
         String str = "^[a-zA-Z][a-zA-Z0-9_]{6,16}$";
@@ -49,7 +53,7 @@ public class RegexUtils {
     }
 
     /**
-     * 邮箱格式
+     * 匹配邮箱
      */
     public static Boolean matcherEmail(String value) {
         String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{3})$";
@@ -57,7 +61,7 @@ public class RegexUtils {
     }
 
     /**
-     * 手机号码格式
+     * 匹配手机号码
      */
     public static Boolean matcherMobileNo(String value) {
         String str = "^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\\d{8}$";
@@ -65,7 +69,7 @@ public class RegexUtils {
     }
 
     /**
-     * 是否只是字母和数字
+     * 匹配字母和数字
      */
     public static Boolean matcherNumberLetter(String value) {
         String str = "^[A-Za-z0-9]+$";
@@ -73,7 +77,7 @@ public class RegexUtils {
     }
 
     /**
-     * 是否只是数字
+     * 匹配数字
      */
     public static Boolean matcherNumber(String value) {
         String str = "^[0-9]+$";
