@@ -3,6 +3,8 @@ package com.dou361.application;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.dou361.utils.UtilsManager;
+
 import org.litepal.LitePalApplication;
 
 /**
@@ -56,6 +58,7 @@ public class BaseApplication extends LitePalApplication {
         mMainLooper = getMainLooper();
         mInstance = this;
         super.onCreate();
+        UtilsManager.init(this,"");
         /** 在应用启动时回调，并且在其他组件被创建之前回调 */
         //Thread.setDefaultUncaughtExceptionHandler(new LogCatUncaughtExceptionHandler());
     }
