@@ -1,11 +1,10 @@
 package com.dou361.application;
 
+import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
 import com.dou361.utils.UtilsManager;
-
-import org.litepal.LitePalApplication;
 
 /**
  * ========================================
@@ -27,7 +26,7 @@ import org.litepal.LitePalApplication;
  * <p/>
  * ========================================
  */
-public class BaseApplication extends LitePalApplication {
+public class BaseApplication extends Application {
 
     /**
      * 全局Context，原理是因为Application类是应用最先运行的，所以在我们的代码调用时，该值已经被赋值过了
@@ -58,7 +57,7 @@ public class BaseApplication extends LitePalApplication {
         mMainLooper = getMainLooper();
         mInstance = this;
         super.onCreate();
-        UtilsManager.init(this,"");
+        UtilsManager.init(this, "");
         /** 在应用启动时回调，并且在其他组件被创建之前回调 */
         //Thread.setDefaultUncaughtExceptionHandler(new LogCatUncaughtExceptionHandler());
     }
