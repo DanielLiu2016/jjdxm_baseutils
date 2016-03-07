@@ -1,6 +1,7 @@
 package com.dou361.test;
 
 import android.app.Application;
+import android.os.Handler;
 
 import com.dou361.utils.LogUtils;
 import com.dou361.utils.UtilsManager;
@@ -29,7 +30,7 @@ public class BaseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        UtilsManager.init(this, "");
+        UtilsManager.init(this, "",new Handler(),Thread.currentThread());
         UtilsManager.getInstance().setDebugEnv(true);
         UtilsManager.getInstance().setLogLevel(LogUtils.LogType.LEVEL_ERROR);
     }

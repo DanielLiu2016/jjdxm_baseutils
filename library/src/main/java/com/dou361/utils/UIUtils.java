@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +18,7 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import com.dou361.application.BaseApplication;
+import android.widget.Toast;
 
 public class UIUtils {
 
@@ -33,21 +33,21 @@ public class UIUtils {
      * 获取主线程
      */
     public static Thread getMainThread() {
-        return BaseApplication.getMainThread();
+        return UtilsManager.getInstance().getMainThread();
     }
 
     /**
      * 获取主线程Id
      */
     public static long getMainThreadId() {
-        return BaseApplication.getMainThreadId();
+        return UtilsManager.getInstance().getMainThreadId();
     }
 
     /**
      * 获取主线程的handler
      */
     public static Handler getHandler() {
-        return BaseApplication.getMainThreadHandler();
+        return UtilsManager.getInstance().getMainThreadHandler();
     }
 
     /**
@@ -90,7 +90,7 @@ public class UIUtils {
      */
     public static int getIdByName(String idName, String idType) {
         return getResources().getIdentifier(idName, idType,
-                getContext().getPackageName());
+                SystemUtils.getPackageName());
     }
 
     /**
@@ -172,6 +172,126 @@ public class UIUtils {
         } else {
             post(runnable);
         }
+    }
+
+    /**
+     * 短时间中下位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastShort(final int resId) {
+        showToastShort(getString(resId));
+    }
+
+    /**
+     * 短时间中下位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastShort(final String str) {
+        if (isRunInMainThread()) {
+            showToast2Button(str, Toast.LENGTH_SHORT);
+        } else {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showToast2Button(str, Toast.LENGTH_SHORT);
+                }
+            });
+        }
+    }
+
+    /**
+     * 长时间中下位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastLong(final int resId) {
+        showToastLong(getString(resId));
+    }
+
+    /**
+     * 长时间中下位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastLong(final String str) {
+        if (isRunInMainThread()) {
+            showToast2Button(str, Toast.LENGTH_LONG);
+        } else {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showToast2Button(str, Toast.LENGTH_LONG);
+                }
+            });
+        }
+    }
+
+    /**
+     * 只定义一个Toast
+     */
+    private static Toast mToast;
+
+    /**
+     * 对toast的简易封装。线程不安全，不可以在非UI线程调用。
+     */
+    private static void showToast2Button(String str, int showTime) {
+
+        if (mToast == null) {
+
+            mToast = Toast.makeText(getContext(), str, showTime);
+        } else {
+            mToast.setText(str);
+        }
+        mToast.show();
+    }
+
+    /**
+     * 短时间居中位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastCenterShort(final int resId) {
+        showToastCenterShort(getString(resId));
+    }
+
+    /**
+     * 短时间居中位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastCenterShort(final String str) {
+        if (isRunInMainThread()) {
+            showToast2Center(str, Toast.LENGTH_SHORT);
+        } else {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showToast2Center(str, Toast.LENGTH_SHORT);
+                }
+            });
+        }
+    }
+
+    /**
+     * 长时间居中位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastCenterLong(final int resId) {
+        showToastCenterLong(getString(resId));
+    }
+
+    /**
+     * 长时间居中位置显示。线程安全，可以在非UI线程调用。
+     */
+    public static void showToastCenterLong(final String str) {
+        if (isRunInMainThread()) {
+            showToast2Center(str, Toast.LENGTH_LONG);
+        } else {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showToast2Center(str, Toast.LENGTH_LONG);
+                }
+            });
+        }
+    }
+
+    /**
+     * 对toast的简易封装。线程不安全，不可以在非UI线程调用。
+     */
+    private static void showToast2Center(String str, int showTime) {
+        Toast toast = Toast.makeText(getContext(), str, showTime);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     /**

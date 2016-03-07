@@ -1,25 +1,26 @@
 package com.dou361.utils;
 
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * ========================================
- * <p/>
+ * <p>
  * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
- * <p/>
+ * <p>
  * 作 者：陈冠明
- * <p/>
+ * <p>
  * 个人网站：http://www.dou361.com
- * <p/>
+ * <p>
  * 版 本：1.0
- * <p/>
+ * <p>
  * 创建日期：2015/12/25
- * <p/>
+ * <p>
  * 描 述：用户sdk初始化配置
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * 修订历史：
- * <p/>
+ * <p>
  * ========================================
  */
 public class UtilsManager {
@@ -27,11 +28,29 @@ public class UtilsManager {
     private static UtilsManager instance;
     private Context appContext;
     private String userKey;
+    /**
+     * 主线程ID
+     */
+    private static int mMainThreadId = -1;
+    /**
+     * 主线程ID
+     */
+    private static Thread mMainThread;
+    /**
+     * 主线程Handler
+     */
+    private static Handler mMainThreadHandler;
 
-    /** 初始化sdk userKey为sdk的key，当前还没有用到，可空 */
-    private UtilsManager(Context appContext, String userKey) {
+    /**
+     * 初始化sdk userKey为sdk的key，当前还没有用到，可空
+     */
+    private UtilsManager(Context appContext, String userKey, Handler mMainThreadHandler, Thread mMainThread) {
         this.appContext = appContext;
         this.userKey = userKey;
+
+        this.mMainThread = mMainThread;
+        this.mMainThreadId = (int) mMainThread.getId();
+        this.mMainThreadHandler = mMainThreadHandler;
     }
 
     public static UtilsManager getInstance() {
@@ -45,8 +64,8 @@ public class UtilsManager {
     /**
      * 初始化sdk，需要在Application的oncreate()方法中调用
      */
-    public static void init(Context appContext, String userKey) {
-        instance = new UtilsManager(appContext, userKey);
+    public static void init(Context appContext, String userKey, Handler mMainThreadHandler, Thread mMainThread) {
+        instance = new UtilsManager(appContext, userKey, mMainThreadHandler, mMainThread);
     }
 
     /**
@@ -75,6 +94,27 @@ public class UtilsManager {
      */
     public void setLogLevel(int flag) {
         LogUtils.setLogLevel(flag);
+    }
+
+    /**
+     * 获取主线程ID
+     */
+    public int getMainThreadId() {
+        return mMainThreadId;
+    }
+
+    /**
+     * 获取主线程
+     */
+    public Thread getMainThread() {
+        return mMainThread;
+    }
+
+    /**
+     * 获取主线程的handler
+     */
+    public Handler getMainThreadHandler() {
+        return mMainThreadHandler;
     }
 
 }
