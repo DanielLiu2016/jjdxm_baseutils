@@ -45,10 +45,18 @@ public class RegexUtils {
     }
 
     /**
+     * 字母开头，匹配字母、数字、下划线
+     */
+    public static boolean matcherPasswordCode(String value) {
+        String str = "^[a-zA-Z][a-zA-Z0-9_]{6,16}$";
+        return matcherString(value, str);
+    }
+
+    /**
      * 匹配字母、数字、下划线
      */
     public static boolean matcherPassword(String value) {
-        String str = "^[a-zA-Z][a-zA-Z0-9_]{6,16}$";
+        String str = "[a-zA-Z0-9_]{6,16}$";
         return matcherString(value, str);
     }
 
