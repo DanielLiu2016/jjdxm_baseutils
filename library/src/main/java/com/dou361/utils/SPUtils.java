@@ -7,27 +7,27 @@ import java.io.Serializable;
 
 /**
  * ========================================
- * <p/>
+ * <p>
  * 版 权：dou361.com 版权所有 （C） 2015
- * <p/>
+ * <p>
  * 作 者：陈冠明
- * <p/>
+ * <p>
  * 个人网站：http://www.dou361.com
- * <p/>
+ * <p>
  * 版 本：1.0
- * <p/>
+ * <p>
  * 创建日期：2015/12/20 23:15
- * <p/>
+ * <p>
  * 描 述：偏好设置
  * 1.默认偏好文件
  * SPUtils.putData(context,key,defValue);
  * 2.自定义偏好文件,@param spName 文件名称
  * SPUtils.putData(context,spName,key,defValue);
  * SPUtils.spTagName(spName).putData(context,key,defValue);
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * 修订历史：
- * <p/>
+ * <p>
  * ========================================
  */
 public class SPUtils {
@@ -112,7 +112,7 @@ public class SPUtils {
         } else if ("Boolean".equals(type)) {
             currentSP.edit().putBoolean(key, (Boolean) data).commit();
         } else if ("String".equals(type)) {
-            currentSP.edit().putString(key, (String) data).commit();
+            currentSP.edit().putString(key, CryptUtil.encrypt((String) data)).commit();
         } else if ("Float".equals(type)) {
             currentSP.edit().putFloat(key, (Float) data).commit();
         } else if ("Long".equals(type)) {
@@ -137,7 +137,7 @@ public class SPUtils {
         } else if ("Boolean".equals(type)) {
             return currentSP.getBoolean(key, (Boolean) defValue);
         } else if ("String".equals(type)) {
-            return currentSP.getString(key, (String) defValue);
+            return CryptUtil.decrypt(currentSP.getString(key, (String) defValue));
         } else if ("Float".equals(type)) {
             return currentSP.getFloat(key, (Float) defValue);
         } else if ("Long".equals(type)) {
@@ -192,22 +192,22 @@ public class SPUtils {
 
     /**
      * ========================================
-     * <p/>
+     * <p>
      * 版 权：dou361.com 版权所有 （C） 2015
-     * <p/>
+     * <p>
      * 作 者：陈冠明
-     * <p/>
+     * <p>
      * 个人网站：http://www.dou361.com
-     * <p/>
+     * <p>
      * 版 本：1.0
-     * <p/>
+     * <p>
      * 创建日期：2015/11/11
-     * <p/>
+     * <p>
      * 描 述：共享文件的SPUtils的包装类，打印信息中包含其对应的类名称
-     * <p/>
-     * <p/>
+     * <p>
+     * <p>
      * 修订历史：
-     * <p/>
+     * <p>
      * ========================================
      */
     public static class SPTagName implements Serializable {

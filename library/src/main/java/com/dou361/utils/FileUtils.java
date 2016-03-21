@@ -25,7 +25,6 @@ public class FileUtils {
     public static final String DOWNLOAD_DIR = "download";
     public static final String CACHE_DIR = "cache";
     public static final String ICON_DIR = "icon";
-    //public static String USER_ACCOUNT = "user";
 
     /**
      * 判断SD卡是否挂载
@@ -70,8 +69,6 @@ public class FileUtils {
         } else {
             sb.append(getCachePath());
         }
-//		sb.append(USER_ACCOUNT);
-//		sb.append(File.separator);
         sb.append(name);
         sb.append(File.separator);
         String path = sb.toString();
@@ -241,7 +238,7 @@ public class FileUtils {
     /**
      * 把数据写入文件
      *
-     * @param bm   数据流
+     * @param bm       数据流
      * @param path     文件路径
      * @param recreate 如果文件存在，是否需要删除重建
      * @param url      真实地址
@@ -260,11 +257,14 @@ public class FileUtils {
                 parentFile.mkdirs();
                 BufferedOutputStream bos = new BufferedOutputStream(
                         new FileOutputStream(f));
+                /** 简单加密 */
+//                bos.write(CryptUtil.getCryptKey().getBytes());
                 if (url != null && (url.contains("png") || url.contains("PNG"))) {
                     bm.compress(Bitmap.CompressFormat.PNG, 80, bos);
                 } else {
                     bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
                 }
+
                 bos.flush();
                 bos.close();
                 res = true;

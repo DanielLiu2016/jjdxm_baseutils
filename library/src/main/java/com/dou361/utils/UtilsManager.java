@@ -3,6 +3,9 @@ package com.dou361.utils;
 import android.content.Context;
 import android.os.Handler;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 /**
  * ========================================
  * <p>
@@ -40,6 +43,7 @@ public class UtilsManager {
      * 主线程Handler
      */
     private static Handler mMainThreadHandler;
+    private RequestQueue mRequestQueue;
 
     /**
      * 初始化sdk userKey为sdk的key，当前还没有用到，可空
@@ -59,6 +63,16 @@ public class UtilsManager {
         } else {
             return instance;
         }
+    }
+
+    /**
+     * 获取网络请求队列
+     */
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(appContext);
+        }
+        return mRequestQueue;
     }
 
     /**
@@ -94,6 +108,13 @@ public class UtilsManager {
      */
     public void setLogLevel(int flag) {
         LogUtils.setLogLevel(flag);
+    }
+
+    /**
+     * 设置sputils中字符串的加密key
+     */
+    public void setCryptKey(String key) {
+        CryptUtil.setCryptKey(key);
     }
 
     /**
