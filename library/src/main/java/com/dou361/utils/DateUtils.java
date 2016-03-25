@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    private DateUtils(){
+    private DateUtils() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -89,6 +89,10 @@ public class DateUtils {
             return sdf.format(date);
         }
 
+    }
+
+    public static long getCurrentTimeMillis() {
+        return new Date().getTime();
     }
 
     /**
@@ -183,8 +187,18 @@ public class DateUtils {
      */
     public static class DateType {
 
+        /**
+         * 输出类型 Date
+         */
         public static String DATE = "DATE";
+        /**
+         * 输出类型 Datetime
+         */
         public static String DATETIME = "DATETIME";
+        /**
+         * 输出类型
+         */
+        public static String sdf_yyyyMMddHHmmss = "yyyyMMddHHmmss";
         public static String sdf_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
         public static String sdf_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
         public static String sdf_yyyy_MM_dd = "yyyy-MM-dd";
