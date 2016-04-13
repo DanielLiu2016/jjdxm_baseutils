@@ -3,27 +3,24 @@ package com.dou361.utils;
 import android.content.Context;
 import android.os.Handler;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
 /**
  * ========================================
- * <p>
+ * <p/>
  * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
- * <p>
+ * <p/>
  * 作 者：陈冠明
- * <p>
+ * <p/>
  * 个人网站：http://www.dou361.com
- * <p>
+ * <p/>
  * 版 本：1.0
- * <p>
+ * <p/>
  * 创建日期：2015/12/25
- * <p>
+ * <p/>
  * 描 述：用户sdk初始化配置
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * 修订历史：
- * <p>
+ * <p/>
  * ========================================
  */
 public class UtilsManager {
@@ -43,7 +40,6 @@ public class UtilsManager {
      * 主线程Handler
      */
     private static Handler mMainThreadHandler;
-    private RequestQueue mRequestQueue;
 
     /**
      * 初始化sdk userKey为sdk的key，当前还没有用到，可空
@@ -63,16 +59,6 @@ public class UtilsManager {
         } else {
             return instance;
         }
-    }
-
-    /**
-     * 获取网络请求队列
-     */
-    public RequestQueue getRequestQueue() {
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(appContext);
-        }
-        return mRequestQueue;
     }
 
     /**
