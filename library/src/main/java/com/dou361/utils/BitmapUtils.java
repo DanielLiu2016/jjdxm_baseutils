@@ -1032,58 +1032,116 @@ public class BitmapUtils {
         return mBitmap;
     }
 
-    /**
-     * 先比例后质量压缩
-     */
-    public static Bitmap compressScale(String srcPath) {
-        return compressScale(srcPath, 800f, 480f, 200);
-    }
-
-    /**
-     * 先比例后质量压缩
-     */
-    public static Bitmap compressScale(Bitmap image) {
-        return compressScale(image, 800f, 480f, 200);
-    }
-
-
-    /**
-     * 先比例后质量压缩
-     */
-    public static Bitmap compressScale(String srcPath, float height, float with, int size) {
+    private static Bitmap getBitmap(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);//此时返回bm为空
-
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 800f;//这里设置高度为800f
+        float ww = 480f;//这里设置宽度为480f
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;//be=1表示不缩放
-        if (w > h && w > with) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (newOpts.outWidth / with);
-        } else if (w < h && h > height) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (newOpts.outHeight / height);
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / hh);
         }
         if (be <= 0)
             be = 1;
         newOpts.inSampleSize = be;//设置缩放比例
         //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-        return compressImage(bitmap, size);//压缩好比例大小后再进行质量压缩
+        return bitmap;
     }
 
     /**
      * 先比例后质量压缩
      */
-    public static Bitmap compressScale(Bitmap image, float height, float with, int size) {
+    public static Bitmap compressScale(String srcPath) {
+        return compressScale(srcPath, 200);
+    }
+
+    /**
+     * 先比例后质量压缩
+     */
+    public static Bitmap compressScale(Bitmap image, int type) {
+        return compressScale(image, type, 200);
+    }
+
+    /**
+     * 按比例压缩转换为byte[]
+     */
+    public static byte[] compressByte(Bitmap image, int type, int size) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (type == 1) {
+            image.compress(CompressFormat.PNG, 100, baos);
+        } else {
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        }
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > size) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            if (type == 1) {
+                image.compress(CompressFormat.PNG, options, baos);
+            } else {
+                image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            }
+            options -= 10;//每次都减少10
+        }
+        byte[] data = baos.toByteArray();
+        return data;
+    }
+
+    /**
+     * 按比例压缩转换为byte[]
+     */
+    public static byte[] compressByte(String srcPath, int size) {
+        if (srcPath == null) {
+            return null;
+        }
+        int type;
+        if (srcPath.startsWith(".png") || srcPath.startsWith(".PNG")) {
+            type = 1;
+        } else {
+            type = 0;
+        }
+        Bitmap bitmap = getBitmap(srcPath);
+        return compressByte(bitmap, type, size);
+    }
+
+    /**
+     * 先比例后质量压缩
+     */
+    public static Bitmap compressScale(String srcPath, int size) {
+        if (srcPath == null) {
+            return null;
+        }
+        int type;
+        if (srcPath.startsWith(".png") || srcPath.startsWith(".PNG")) {
+            type = 1;
+        } else {
+            type = 0;
+        }
+        return compressImage(getBitmap(srcPath), type, size);//压缩好比例大小后再进行质量压缩
+    }
+
+    /**
+     * 先比例后质量压缩
+     */
+    public static Bitmap compressScale(Bitmap image, int type, int size) {
         if (image == null) {
             return null;
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (type == 1) {
+            image.compress(CompressFormat.PNG, 100, baos);
+        } else {
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        }
         if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
@@ -1097,12 +1155,14 @@ public class BitmapUtils {
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 800f;//这里设置高度为800f
+        float ww = 480f;//这里设置宽度为480f
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;//be=1表示不缩放
-        if (w > h && w > with) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (newOpts.outWidth / with);
-        } else if (w < h && h > height) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (newOpts.outHeight / height);
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / hh);
         }
         if (be <= 0)
             be = 1;
@@ -1110,61 +1170,79 @@ public class BitmapUtils {
         //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
         isBm = new ByteArrayInputStream(baos.toByteArray());
         bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-        return compressImage(bitmap, size);//压缩好比例大小后再进行质量压缩
+        return compressImage(bitmap, type, size);//压缩好比例大小后再进行质量压缩
     }
 
-    public static void saveBitmap(String filename, Bitmap bitmap) {
-
-        File file = new File(filename);
-        File f = file.getParentFile();
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-            if (bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)) {
-                out.flush();
-            }
-        } catch (FileNotFoundException var19) {
-            var19.printStackTrace();
-        } catch (IOException var20) {
-            var20.printStackTrace();
-        } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException var18) {
-                    var18.printStackTrace();
-                }
-            }
-        }
-
-    }
 
     /**
      * 质量压缩
      */
-    private static Bitmap compressImage(Bitmap image, int size) {
+    private static Bitmap compressImage(Bitmap image, int type, int size) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        if (type == 1) {
+            image.compress(CompressFormat.PNG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        } else {
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        }
         int options = 100;
         while (baos.toByteArray().length / 1024 > size) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            if (type == 1) {
+                image.compress(CompressFormat.PNG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            } else {
+                image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            }
             options -= 10;//每次都减少10
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
         return bitmap;
+    }
+
+    /**
+     * 保存bitmap
+     */
+    public static void saveBitmap(String savePath, String srcPath, int size) {
+        if (savePath == null) {
+            return;
+        }
+        int type;
+        if (savePath.startsWith(".png") || savePath.startsWith(".PNG")) {
+            type = 1;
+        } else {
+            type = 0;
+        }
+        Bitmap bitmap = getBitmap(srcPath);
+        saveBitmap(savePath, bitmap, type, size);
+    }
+
+
+    /**
+     * 保存bitmap
+     */
+    public static void saveBitmap(String savePath, Bitmap bitmap, int type, int size) {
+        String path = savePath.substring(0, savePath.lastIndexOf("/"));
+        String fileName = savePath.substring(savePath.lastIndexOf("/"));
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        Bitmap bmp = compressScale(bitmap, type, size);
+        File saveFile = new File(file, fileName);
+        try {
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(saveFile);
+            if (type == 1) {
+                bmp.compress(CompressFormat.PNG, 100, fos);
+            } else {
+                bmp.compress(CompressFormat.JPEG, 100, fos);
+            }
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -1209,7 +1287,7 @@ public class BitmapUtils {
         }
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
                 .format(new Date());
-        String fileName = "jjdxm_" + timeStamp + ".jpg";// 照片命名
+        String fileName = "jjdxm_" + timeStamp;// 照片命名
         File out = new File(savePath, fileName);
         Uri uri = Uri.fromFile(out);
         intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1253,8 +1331,9 @@ public class BitmapUtils {
         Uri cropUri = Uri.fromFile(flie);
         intent.putExtra("output", cropUri);
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", cropx);// 裁剪框比例
-        intent.putExtra("aspectY", cropy);
+        int[] arr = minScale(cropx, cropy);
+        intent.putExtra("aspectX", arr[0]);// 裁剪框比例
+        intent.putExtra("aspectY", arr[1]);
         intent.putExtra("outputX", cropx);// 输出图片大小
         intent.putExtra("outputY", cropy);
         intent.putExtra("scale", true);// 去黑边
@@ -1262,6 +1341,26 @@ public class BitmapUtils {
         activity.startActivityForResult(intent,
                 requestcode);
         return protraitPath;
+    }
+
+
+    /**
+     * 两数最小整数比
+     */
+    public static int[] minScale(int a, int b) {
+        int[] arr = new int[2];
+        int tmp = a;
+        if (a > b) {
+            tmp = b;
+        }
+        for (int i = tmp; i > 0; i--) {
+            if (a % i == 0 && b % i == 0) {
+                arr[0] = a / i;
+                arr[1] = b / i;
+                break;
+            }
+        }
+        return arr;
     }
 
 }

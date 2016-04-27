@@ -38,6 +38,41 @@ public class StringUtils {
     }
 
     /**
+     * 格式化银行卡
+     *
+     * @param cardNo
+     * @return
+     */
+    public static String formatBankCard(String cardNo) {
+        String card = "";
+        card = cardNo.substring(0, 4) + " **** **** ";
+        card += cardNo.substring(cardNo.length() - 4);
+        return card;
+    }
+
+    /**
+     * 银行卡后四位
+     *
+     * @param cardNo
+     * @return
+     */
+    public static String formatBankCardEndFour(String cardNo) {
+        String card = "";
+        card += cardNo.substring(cardNo.length() - 4);
+        return card;
+    }
+
+    public static String fomatMoney(float money) {
+        DecimalFormat myformat = new DecimalFormat();
+        if (money == 0) {
+            return "0.00";
+        } else {
+            myformat.applyPattern("##,###.00");
+            return myformat.format(money);
+        }
+    }
+
+    /**
      * 字符串转换为int整形
      */
     public static int convertToInt(String str) {
@@ -243,7 +278,7 @@ public class StringUtils {
 
     /**
      * 将首字母大写
-     * <p/>
+     * <p>
      * <pre>
      * capitalizeFirstLetter(null) = null;
      * capitalizeFirstLetter("") = "";
@@ -270,7 +305,7 @@ public class StringUtils {
 
     /**
      * UTF-8编码
-     * <p/>
+     * <p>
      * <pre>
      * utf8Encode(null) = null
      * utf8Encode("") = "";
@@ -296,7 +331,7 @@ public class StringUtils {
 
     /**
      * UTF-8编码 如果异常则返回默认�?
-     * <p/>
+     * <p>
      * <pre>
      * utf8Encode(null) = null
      * utf8Encode("") = "";
@@ -321,7 +356,7 @@ public class StringUtils {
 
     /**
      * 全宽字符变换半宽字符
-     * <p/>
+     * <p>
      * <pre>
      * fullWidthToHalfWidth(null) = null;
      * fullWidthToHalfWidth("") = "";
@@ -352,7 +387,7 @@ public class StringUtils {
 
     /**
      * 半宽字符变换全宽字符
-     * <p/>
+     * <p>
      * <pre>
      * halfWidthToFullWidth(null) = null;
      * halfWidthToFullWidth("") = "";
@@ -856,6 +891,14 @@ public class StringUtils {
             return strParam[0];
         }
         return url;
+    }
+
+    /**
+     * 将一个URL地址的分割，去掉所有参数，返回？前的地址
+     */
+    public static String getNubmerByLength(int length) {
+        StringBuffer sb = new StringBuffer();
+        return sb.toString();
     }
 
 }

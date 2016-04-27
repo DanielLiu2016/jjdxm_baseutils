@@ -93,6 +93,23 @@ public class RegexUtils {
     }
 
     /**
+     * 验证银卡卡号
+     */
+    public static boolean matcherBankCard(String value) {
+        String str = "^\\d{16,19}$|^\\d{6}[- ]\\d{10,13}$|^\\d{4}[- ]\\d{4}[- ]\\d{4}[- ]\\d{4,7}$";
+        return matcherString(value,str);
+    }
+
+    /**
+     * 身份证验证
+     */
+    public static boolean matcherIdCard(String value) {
+        /**15位和18位身份证号码的正则表达式*/
+        String str = "^(^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$)|(^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])((\\d{4})|\\d{3}[Xx])$)$";
+        return matcherString(value,str);
+    }
+
+    /**
      * 匹配中文字符的正则表达式： [\u4e00-\u9fa5]
      评注：匹配中文还真是个头疼的事，有了这个表达式就好办了
 

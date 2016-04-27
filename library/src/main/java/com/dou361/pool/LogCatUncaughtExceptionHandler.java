@@ -44,7 +44,9 @@ public class LogCatUncaughtExceptionHandler implements UncaughtExceptionHandler 
                 .getAbsoluteFile()
                 + File.separator
                 + context.getPackageName().substring(
-                context.getPackageName().lastIndexOf(".") + 1));
+                context.getPackageName().lastIndexOf(".") + 1)
+                + File.separator
+                + "log");
         if (!path.exists()) {
             path.mkdirs();
         }
