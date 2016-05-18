@@ -32,7 +32,7 @@ public class NetworkUtils {
     /**
      * 判断是否有WIFI
      */
-    public boolean isWifiConnected(Context context) {
+    public static boolean isWifiConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);

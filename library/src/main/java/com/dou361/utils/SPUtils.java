@@ -186,8 +186,8 @@ public class SPUtils {
         } else {
             currentSP = mCustomSP;
         }
-        currentSP = null;
         currentSP.edit().clear().commit();
+        currentSP = null;
     }
 
     /**
