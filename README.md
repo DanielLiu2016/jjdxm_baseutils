@@ -14,8 +14,6 @@
 
 [demo apk下载][downapk]
 
-[下载最新版本aar][lastaar]
-
 [下载最新版本jar][lastjar]
 
 Download or grab via Maven:
@@ -304,7 +302,7 @@ If you find any bug when using project, please report [here][issues]. Thanks for
 [project]:https://github.com/jjdxmashl/jjdxm_baseutils/
 [issues]:https://github.com/jjdxmashl/jjdxm_baseutils/issues/new
 [downapk]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/apk/app-debug.apk
-[lastaar]:https://search.maven.org/remote_content?g=com.dou361.baseutils&a=jjdxm-baseutils&v=LATEST
-[lastjar]:https://search.maven.org/remote_content?g=com.dou361.baseutils&a=jjdxm-baseutils&v=LATEST
+[lastaar]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/release/jjdxm-baseutils-1.0.0.aar
+[lastjar]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/release/jjdxm-baseutils-1.0.0.jar
 [icon01]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/screenshots/icon01.png
 [icon02]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/screenshots/icon02.png
