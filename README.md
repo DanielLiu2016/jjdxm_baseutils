@@ -33,7 +33,7 @@ jjdxm-baseutils requires at minimum Java 15 or Android 4.0.
 
 ## Get Started ##
 
-# 一、快速集成 #
+###  一、快速集成 ###
 1.在系统Application类中的oncreate（）方法中初始化
 
 	/** 初始化sdk */
@@ -45,9 +45,9 @@ jjdxm-baseutils requires at minimum Java 15 or Android 4.0.
 
 
 
-# 二、类主要方法说明 #
+### 二、类主要方法说明 ###
 
-## UtilsManager.java 工具类的管理类 ##
+### UtilsManager.java 工具类的管理类 ###
 UtilsManager(Context, String) 构造函数
 
 getAppContext(): Context 获取应用上下文
@@ -62,7 +62,7 @@ setFristTag(String): void 设置输出日志的第一个tag名称，默认是dou
 
 setLogLevel(int): void 设置输出日志的等级，默认是debug等级
 
-## SPUtils.java 偏好设置工具类 ##
+### SPUtils.java 偏好设置工具类 ###
 
 clearAll(Context): void 清理默认文件所有的偏好参数
 
@@ -93,7 +93,7 @@ putData(Context, String, Object): void 保存指定文件的指定参数
 
 remove(Context, String): void 移除指定文件的指定参数
 
-## LogUtils.java 日志输出工具类 ##
+### LogUtils.java 日志输出工具类 ###
 log(String): void 输出字符串日志
 
 log(String, Throwable): void 输出字符串和异常日志
@@ -138,7 +138,7 @@ LEVEL_VERBOSE: int = 1
 
 LEVEL_WARN: int = 4
 
-## RegexUtils.java 正则工具类 ##
+### RegexUtils.java 正则工具类 ###
 matcherEmail(String): Boolean 匹配邮箱
 
 matcherIllegal(String): boolean 匹配非非法字符
@@ -152,7 +152,7 @@ matcherNumberLetter(String): Boolean 匹配数字和字母
 matcherPassword(String): boolean 匹配密码
 
 
-## DateUtils.java 日期工具类 ##
+### DateUtils.java 日期工具类 ###
 compareDate(Date, Date): int 比较两个日期大小
 
 getData(String, Date): Object 获取指定日期样式通过date
@@ -189,12 +189,12 @@ sdf_yyyy_MM_dd_HH_mm: String = "yyyy-MM-dd HH: mm"
 
 sdf_yyyy_MM_dd_HH_mm_ss: String = "yyyy-MM-dd HH: mm: ss"
 
-## CodeUtils.java 返回码和消息工具类 ##
+### CodeUtils.java 返回码和消息工具类 ###
 getInstance(): CodeUtils 获取对象，单例模式
 
 getMessage(int): String 获取消息通过返回码
 
-## RopUtils.java 签名工具类 ##
+### RopUtils.java 签名工具类 ###
 byte2String(byte[]): String byte转换为字符串
 
 byteTohex(byte[]): String byte转换为十六进制
@@ -215,12 +215,12 @@ sign(Map<String, String>, List<String>, String): String 签名map参数除忽略
 
 sign(Map<String, String>, String): String 签名map参数，指定签名key
 
-## ResourceUtils.java 资源工具类 ##
+### ResourceUtils.java 资源工具类 ###
 getResourceArraryIdByName(String, String): int[] 获取资源中array的id数组
 
 getResourceIdByName(String, String): int 获取资源中id
 
-## ToastUtils.java Toast工具类 ##
+### ToastUtils.java Toast工具类 ###
 需要传上下文的显示
 
 showToastLong2Bottom(Context, int): void
@@ -257,7 +257,7 @@ showToastShort2Center(int): void
 
 showToastShort2Center(String): void
 
-## MediaUtils.java 多媒体工具类 ##
+### MediaUtils.java 多媒体工具类 ###
 muteAudioFocus(Context, boolean): boolean 开启或者关闭后台多媒体
 
 
