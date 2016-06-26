@@ -1,6 +1,5 @@
 # [jjdxm_baseutils][project] #
 ## Introduction ##
-[apk下载][downapk]
 
 ### 这是一个自定义的jjdxm_baseutils常用的工具类使用说明 ###
 
@@ -10,6 +9,29 @@
 ### 过滤接收到的短信，得到自己想要的内容 ###
 
 ## Screenshots ##
+
+## Download ##
+
+[demo apk下载][downapk]
+
+[下载最新版本aar][lastaar]
+
+[下载最新版本jar][lastjar]
+
+Download or grab via Maven:
+
+	<dependency>
+	  <groupId>com.dou361.baseutils</groupId>
+	  <artifactId>jjdxm-baseutils</artifactId>
+	  <version>x.x.x</version>
+	</dependency>
+
+or Gradle:
+
+	compile 'com.dou361.baseutils:jjdxm-baseutils:x.x.x'
+
+
+jjdxm-baseutils requires at minimum Java 15 or Android 4.0.
 
 ## Get Started ##
 
@@ -282,5 +304,7 @@ If you find any bug when using project, please report [here][issues]. Thanks for
 [project]:https://github.com/jjdxmashl/jjdxm_baseutils/
 [issues]:https://github.com/jjdxmashl/jjdxm_baseutils/issues/new
 [downapk]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/apk/app-debug.apk
+[lastaar]:https://search.maven.org/remote_content?g=com.dou361.baseutils&a=jjdxm-baseutils&v=LATEST
+[lastjar]:https://search.maven.org/remote_content?g=com.dou361.baseutils&a=jjdxm-baseutils&v=LATEST
 [icon01]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/screenshots/icon01.png
 [icon02]:https://raw.githubusercontent.com/jjdxmashl/jjdxm_baseutils/master/screenshots/icon02.png
