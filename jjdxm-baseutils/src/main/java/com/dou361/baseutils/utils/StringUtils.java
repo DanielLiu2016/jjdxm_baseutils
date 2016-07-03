@@ -279,14 +279,12 @@ public class StringUtils {
     /**
      * 将首字母大写
      * <p>
-     * <pre>
      * capitalizeFirstLetter(null) = null;
      * capitalizeFirstLetter("") = "";
      * capitalizeFirstLetter("2ab") = "2ab"
-     * capitalizeFirstLetter("a") = "A"<
+     * capitalizeFirstLetter("a") = "A"
      * capitalizeFirstLetter("ab") = "Ab"
      * capitalizeFirstLetter("Abc") = "Abc"
-     * </pre>
      *
      * @param str
      * @return
@@ -356,13 +354,9 @@ public class StringUtils {
 
     /**
      * 全宽字符变换半宽字符
-     * <p>
-     * <pre>
      * fullWidthToHalfWidth(null) = null;
      * fullWidthToHalfWidth("") = "";
      * fullWidthToHalfWidth(new String(new char[] {12288})) = " ";
-     * fullWidthToHalfWidth("！＂＃＄％＆) = "!\"#$%&";
-     * </pre>
      *
      * @param s
      * @return
@@ -388,12 +382,9 @@ public class StringUtils {
     /**
      * 半宽字符变换全宽字符
      * <p>
-     * <pre>
      * halfWidthToFullWidth(null) = null;
      * halfWidthToFullWidth("") = "";
      * halfWidthToFullWidth(" ") = new String(new char[] {12288});
-     * halfWidthToFullWidth("!\"#$%&) = "！＂＃＄％＆";
-     * </pre>
      *
      * @param s
      * @return

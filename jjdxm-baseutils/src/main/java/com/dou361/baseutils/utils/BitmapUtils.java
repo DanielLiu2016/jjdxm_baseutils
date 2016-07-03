@@ -51,7 +51,6 @@ import java.util.Date;
  *
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
- * @created 2012-3-21
  */
 public class BitmapUtils {
 
@@ -78,7 +77,6 @@ public class BitmapUtils {
     /**
      * 写图片文件 在Android系统中，文件保存在 /data/data/PACKAGE_NAME/files 目录下
      *
-     * @throws IOException
      */
     public static void saveImage(Context context, String fileName, Bitmap bitmap)
             throws IOException {
@@ -102,7 +100,7 @@ public class BitmapUtils {
     /**
      * 写图片文件到SD卡
      *
-     * @throws IOException
+     *
      */
     public static void saveImageToSD(Context ctx, String filePath,
                                      Bitmap bitmap, int quality) throws IOException {
@@ -393,7 +391,7 @@ public class BitmapUtils {
      * @param thumbfilePath  输出缩略图路径
      * @param square_size    输出图片宽度
      * @param quality        输出图片质量
-     * @throws IOException
+     *
      */
     public static void createImageThumbnail(Context context,
                                             String largeImagePath, String thumbfilePath, int square_size,
@@ -701,7 +699,6 @@ public class BitmapUtils {
      * 获取图片路径 2014年8月12日
      *
      * @param uri
-     * @return E-mail:mr.huangwenwei@gmail.com
      */
     public static String getImagePath(Uri uri, Activity context) {
 
@@ -866,7 +863,7 @@ public class BitmapUtils {
     /**
      * 回收垃圾 recycle
      *
-     * @throws
+     * 
      */
     public static void recycle(Bitmap bitmap) {
         // 先判断是否已经回收
@@ -915,7 +912,7 @@ public class BitmapUtils {
      * rotaingImageView
      *
      * @return Bitmap
-     * @throws
+     * 
      */
     public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
         // 旋转图片 动作
@@ -959,8 +956,7 @@ public class BitmapUtils {
     /**
      * 将图片转化为圆形头像
      *
-     * @throws
-     * @Title: toRoundBitmap
+     *
      */
     public static Bitmap toRoundBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();

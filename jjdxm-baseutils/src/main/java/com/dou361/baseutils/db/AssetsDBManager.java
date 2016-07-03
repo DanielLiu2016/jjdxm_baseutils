@@ -11,22 +11,22 @@ import android.content.res.AssetManager;
 import com.dou361.baseutils.utils.LogUtils;
 /**
  * ========================================
- * <p/>
+ * <p>
  * 版 权：dou361.com 版权所有 （C） 2015
- * <p/>
+ * <p>
  * 作 者：陈冠明
- * <p/>
+ * <p>
  * 个人网站：http://www.dou361.com
- * <p/>
+ * <p>
  * 版 本：1.0
- * <p/>
+ * <p>
  * 创建日期：2015/11/11
- * <p/>
+ * <p>
  * 描 述：放在资产目录下的数据库，复制到sd卡中
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * 修订历史：
- * <p/>
+ * <p>
  * ========================================
  */
 public class AssetsDBManager {
