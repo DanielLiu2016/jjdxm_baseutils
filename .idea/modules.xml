@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jjdxm-baseutils/jjdxm-baseutils.iml" filepath="$PROJECT_DIR$/jjdxm-baseutils/jjdxm-baseutils.iml" />
       <module fileurl="file://$PROJECT_DIR$/jjdxm_baseutils.iml" filepath="$PROJECT_DIR$/jjdxm_baseutils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jjdxm-baseutils/library.iml" filepath="$PROJECT_DIR$/jjdxm-baseutils/library.iml" />
     </modules>
   </component>
 </project>

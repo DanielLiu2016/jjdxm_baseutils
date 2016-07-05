@@ -9,8 +9,8 @@ ext {
     jjdxm_groupId = 'com.dou361.baseutils'
     jjdxm_artifactId = 'jjdxm-baseutils'
 
-    jjdxm_libraryVersion = '1.0.0'
-    jjdxm_libraryName = 'jjdxmbaseutils'
+    jjdxm_libraryVersion = '1.0.1'
+    jjdxm_libraryName = 'jjdxm-baseutils'
     jjdxm_libraryDescription = '这是一个自动获取验证码并填充到文本框的工具类'
 
     jjdxm_siteUrl = 'https://github.com/jjdxmashl/jjdxm_baseutils'
