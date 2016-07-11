@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,16 +60,6 @@ public class StringUtils {
         return card;
     }
 
-    public static String fomatMoney(float money) {
-        DecimalFormat myformat = new DecimalFormat();
-        if (money == 0) {
-            return "0.00";
-        } else {
-            myformat.applyPattern("##,###.00");
-            return myformat.format(money);
-        }
-    }
-
     /**
      * 字符串转换为int整形
      */
@@ -100,27 +88,68 @@ public class StringUtils {
     /**
      * 格式化double数据保留两位小数点
      */
-    public static String changeNumber(Double data) {
-        if (Double.isNaN(data)) {
-            return "0";
+    public static String formatNumber(double value) {
+        double value1 = Math.round(value * 10) * 0.1;
+        String bb = "" + value1;
+        String result = bb;
+        String[] aar = bb.split("\\.");
+        if (aar.length == 1) {
+            result = aar[0] + ".0";
+        } else if (aar.length > 1) {
+            String str1 = aar[1];
+            if (str1.length() == 1) {
+                result = aar[0] + "." + str1;
+            } else {
+                result = aar[0] + "." + str1.substring(2);
+            }
         }
-        BigDecimal bd = new BigDecimal(data);
-        data = bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        DecimalFormat df = new DecimalFormat("0.0");
-        return df.format(data);
+        return result + "";
     }
 
     /**
-     * 判断字符串是否有值，如果为null或者是空字符串或者只有空格或者为"null"字符串，则返回true，否则则返回false
+     * 格式化double数据，并保留两位小数，整数则不补全0.00
      */
-    public static String getMenoy(double value) {
-        if (Double.isNaN(value)) {
-            return "0";
+    public static String formatExclueIntNumber(double value) {
+        double value1 = Math.round(value * 100) * 0.01;
+        String bb = "" + value;
+        String result = bb;
+        String[] aar = bb.split("\\.");
+        if (aar.length == 1) {
+            result = aar[0] + "";
+        } else if (aar.length > 1) {
+            String str1 = aar[1];
+            if (str1.length() == 1) {
+                result = aar[0] + "." + str1 + "0";
+            } else if (str1.length() == 2) {
+                result = aar[0] + "." + str1;
+            } else {
+                result = aar[0] + "." + str1.substring(0, 3);
+            }
         }
-        BigDecimal bd = new BigDecimal(value);
-        value = bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        DecimalFormat df = new DecimalFormat("0.00");
-        return "￥" + df.format(value);
+        return result + "";
+    }
+
+    /**
+     * 格式化double数据，并保留两位小数，整数也补全0.00
+     */
+    public static String formatInclueIntNumber(double value) {
+        double value1 = Math.round(value * 100) * 0.01;
+        String bb = "" + value1;
+        String result = bb;
+        String[] aar = bb.split("\\.");
+        if (aar.length == 1) {
+            result = aar[0] + ".00";
+        } else if (aar.length > 1) {
+            String str1 = aar[1];
+            if (str1.length() == 1) {
+                result = aar[0] + "." + str1 + "0";
+            } else if (str1.length() == 2) {
+                result = aar[0] + "." + str1;
+            } else {
+                result = aar[0] + "." + str1.substring(0, 3);
+            }
+        }
+        return result + "";
     }
 
     /**
@@ -202,57 +231,25 @@ public class StringUtils {
     /**
      * 格式化文件大小，不保留末尾的0
      */
-    public static String formatFileSize(long len) {
-        return formatFileSize(len, false);
+    public static String formatFileSize(long size) {
+        return formatFileSize(size, false);
     }
 
     /**
      * 格式化文件大小，保留末尾的0，达到长度一致
      */
-    public static String formatFileSize(long len, boolean keepZero) {
-        String size;
-        DecimalFormat formatKeepTwoZero = new DecimalFormat("#.00");
-        DecimalFormat formatKeepOneZero = new DecimalFormat("#.0");
-        if (len < 1024) {
-            size = String.valueOf(len + "B");
-        } else if (len < 10 * 1024) {
-            // [0, 10KB)，保留两位小数
-            size = String.valueOf(len * 100 / 1024 / (float) 100) + "KB";
-        } else if (len < 100 * 1024) {
-            // [10KB, 100KB)，保留一位小数
-            size = String.valueOf(len * 10 / 1024 / (float) 10) + "KB";
-        } else if (len < 1024 * 1024) {
-            // [100KB, 1MB)，个位四舍五入
-            size = String.valueOf(len / 1024) + "KB";
-        } else if (len < 10 * 1024 * 1024) {
-            // [1MB, 10MB)，保留两位小数
-            if (keepZero) {
-                size = String.valueOf(formatKeepTwoZero.format(len * 100 / 1024
-                        / 1024 / (float) 100))
-                        + "MB";
-            } else {
-                size = String.valueOf(len * 100 / 1024 / 1024 / (float) 100)
-                        + "MB";
-            }
-        } else if (len < 100 * 1024 * 1024) {
-            // [10MB, 100MB)，保留一位小数
-            if (keepZero) {
-                size = String.valueOf(formatKeepOneZero.format(len * 10 / 1024
-                        / 1024 / (float) 10))
-                        + "MB";
-            } else {
-                size = String.valueOf(len * 10 / 1024 / 1024 / (float) 10)
-                        + "MB";
-            }
-        } else if (len < 1024 * 1024 * 1024) {
-            // [100MB, 1GB)，个位四舍五入
-            size = String.valueOf(len / 1024 / 1024) + "MB";
-        } else {
-            // [1GB, ...)，保留两位小数
-            size = String.valueOf(len * 100 / 1024 / 1024 / 1024 / (float) 100)
-                    + "GB";
+    public static String formatFileSize(long size, boolean keepZero) {
+        String showSize = "";
+        if (size >= 0 && size < 1024) {
+            showSize = size + "B";
+        } else if (size >= 1024 && size < (1024 * 1024)) {
+            showSize = Long.toString(size / 1024) + "KB";
+        } else if (size >= (1024 * 1024) && size < (1024 * 1024 * 1024)) {
+            showSize = Long.toString(size / (1024 * 1024)) + "MB";
+        } else if (size >= (1024 * 1024 * 1024)) {
+            showSize = Long.toString(size / (1024 * 1024 * 1024)) + "GB";
         }
-        return size;
+        return showSize;
     }
 
     /**
@@ -278,7 +275,7 @@ public class StringUtils {
 
     /**
      * 将首字母大写
-     * <p>
+     * <p/>
      * capitalizeFirstLetter(null) = null;
      * capitalizeFirstLetter("") = "";
      * capitalizeFirstLetter("2ab") = "2ab"
@@ -303,7 +300,7 @@ public class StringUtils {
 
     /**
      * UTF-8编码
-     * <p>
+     * <p/>
      * <pre>
      * utf8Encode(null) = null
      * utf8Encode("") = "";
@@ -329,7 +326,7 @@ public class StringUtils {
 
     /**
      * UTF-8编码 如果异常则返回默认�?
-     * <p>
+     * <p/>
      * <pre>
      * utf8Encode(null) = null
      * utf8Encode("") = "";
@@ -381,7 +378,7 @@ public class StringUtils {
 
     /**
      * 半宽字符变换全宽字符
-     * <p>
+     * <p/>
      * halfWidthToFullWidth(null) = null;
      * halfWidthToFullWidth("") = "";
      * halfWidthToFullWidth(" ") = new String(new char[] {12288});
