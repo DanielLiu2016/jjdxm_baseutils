@@ -21,6 +21,7 @@
     <EditText
         android:id="@+id/et_number"
         android:layout_width="match_parent"
+        android:text="0123中文English==++"
         android:layout_height="wrap_content"/>
 
     <Button

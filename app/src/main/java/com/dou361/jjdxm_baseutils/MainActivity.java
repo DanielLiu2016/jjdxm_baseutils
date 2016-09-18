@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.dou361.baseutils.utils.CodeUtils;
 import com.dou361.baseutils.utils.DateUtils;
-import com.dou361.baseutils.utils.LogUtils;
 import com.dou361.baseutils.utils.SPUtils;
 import com.dou361.baseutils.utils.StringUtils;
 
@@ -27,8 +26,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.logTagName("mainActivity").log("--------111111-------");
-                LogUtils.log("--------111111-------");
+
             }
         });
         et_number = (EditText) findViewById(R.id.et_number);

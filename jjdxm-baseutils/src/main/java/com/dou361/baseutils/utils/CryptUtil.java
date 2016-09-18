@@ -22,7 +22,8 @@ package com.dou361.baseutils.utils;
  */
 public class CryptUtil {
 
-    private static String cryptKey = "dou361";
+//    private static String cryptKey = "dou361";
+    private static String cryptKey = "123456";
 
     private final static byte[] hex = "0123456789ABCDEF".getBytes();
 

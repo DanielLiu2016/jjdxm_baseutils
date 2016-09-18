@@ -66,6 +66,7 @@ public class UtilsManager {
      */
     public static void init(Context appContext, String userKey, Handler mMainThreadHandler, Thread mMainThread) {
         instance = new UtilsManager(appContext, userKey, mMainThreadHandler, mMainThread);
+        DisplayUtil.init(appContext);
     }
 
     /**
