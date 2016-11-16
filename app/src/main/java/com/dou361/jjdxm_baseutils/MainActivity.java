@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dou361.baseutils.utils.CodeUtils;
+import com.dou361.baseutils.utils.DateType;
 import com.dou361.baseutils.utils.DateUtils;
 import com.dou361.baseutils.utils.SPUtils;
 import com.dou361.baseutils.utils.StringUtils;
@@ -39,8 +39,7 @@ public class MainActivity extends Activity {
         });
         SPUtils.putData(this, "ceshi", "1992");
         SPUtils.spTagName("ming").putData(this, "ceshi", "1992");
-        CodeUtils.getInstance().getMessage(200);
-        DateUtils.getData(DateUtils.DateType.sdf_yyyy_MM_dd, new Date());
+        DateUtils.getDate(DateType.sdf_yyyy_MM_dd, new Date());
 
     }
 }

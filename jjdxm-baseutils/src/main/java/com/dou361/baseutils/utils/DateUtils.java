@@ -39,8 +39,8 @@ public class DateUtils {
      * @param defValue 输入要转换的日期，Date对象，long 毫秒值，String 字符串日期
      * @return 要求获取的类型的日期
      */
-    public static Object getData(String sdfTo, Date defValue) {
-        return getData(sdfTo, null, defValue);
+    public static Object getDate(String sdfTo, Date defValue) {
+        return getDate(sdfTo, null, defValue);
     }
 
     /**
@@ -50,8 +50,8 @@ public class DateUtils {
      * @param defValue 输入要转换的日期，Date对象，long 毫秒值，String 字符串日期
      * @return 要求获取的类型的日期
      */
-    public static Object getData(String sdfTo, long defValue) {
-        return getData(sdfTo, null, defValue);
+    public static Object getDate(String sdfTo, long defValue) {
+        return getDate(sdfTo, null, defValue);
     }
 
     /**
@@ -62,7 +62,7 @@ public class DateUtils {
      * @param defValue 输入要转换的日期，Date对象，long 毫秒值，String 字符串日期
      * @return 要求获取的类型的日期
      */
-    public static Object getData(String sdfTo, String sdfFrom, Object defValue) {
+    public static Object getDate(String sdfTo, String sdfFrom, Object defValue) {
         String type = defValue.getClass().getSimpleName();
         Date date;
         if ("Integer".equals(type) || "Long".equals(type)) {
@@ -91,8 +91,18 @@ public class DateUtils {
 
     }
 
+    /**
+     * 获取当前毫秒值
+     */
     public static long getCurrentTimeMillis() {
         return new Date().getTime();
+    }
+
+    /**
+     * 获取当前分的毫秒值忽略秒值 yyyy-mm-dd HH:mm
+     */
+    public static long getCurrentMinuteTimeMillis() {
+        return (long) getDate(DateType.DATETIME, (Date) getDate(DateType.sdf_yyyy_MM_dd_HH_mm, new Date()));
     }
 
     /**
@@ -163,50 +173,6 @@ public class DateUtils {
             mWay = "六";
         }
         return "星期" + mWay;
-    }
-
-    /**
-     * ========================================
-     * <p>
-     * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
-     * <p>
-     * 作 者：陈冠明
-     * <p>
-     * 个人网站：http://www.dou361.com
-     * <p>
-     * 版 本：1.0
-     * <p>
-     * 创建日期：2015/12/26
-     * <p>
-     * 描 述：
-     * <p>
-     * <p>
-     * 修订历史：
-     * <p>
-     * ========================================
-     */
-    public static class DateType {
-
-        /**
-         * 输出类型 Date
-         */
-        public static String DATE = "DATE";
-        /**
-         * 输出类型 Datetime
-         */
-        public static String DATETIME = "DATETIME";
-        /**
-         * 输出类型
-         */
-        public static String sdf_yyyyMMddHHmmss = "yyyyMMddHHmmss";
-        public static String sdf_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-        public static String sdf_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
-        public static String sdf_yyyy_MM_dd = "yyyy-MM-dd";
-        public static String sdf_HH_mm_ss = "HH:mm:ss";
-        public static String sdf_yyyy = "yyyy";
-        public static String sdf_MM = "MM";
-        public static String sdf_dd = "dd";
-        public static String sdf_HH_mm = "HH:mm";
     }
 
 }

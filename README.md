@@ -41,6 +41,7 @@ or Gradle:
 
 历史版本：
 
+	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.5'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.4'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.3'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.2'
@@ -296,6 +297,8 @@ muteAudioFocus(Context, boolean): boolean 开启或者关闭后台多媒体
 ## More Actions ##
 
 ## ChangeLog ##
+
+2016.11.16 1.0.5版本发布，StringUtils中添加了double数据的格式化，随机数的获取，DateUtils、LogUtils、SPUtils把内部类移除，使用外部类
 
 ## About Author ##
 

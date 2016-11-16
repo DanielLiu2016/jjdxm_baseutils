@@ -2,8 +2,8 @@ package com.dou361.baseutils.utils;
 
 import android.util.Log;
 
-import java.io.Serializable;
 import java.util.List;
+
 /**
  * ========================================
  * <p>
@@ -39,12 +39,14 @@ public class LogUtils {
      * 当前日志是否输出
      */
     private static boolean mIsPrintLog = false;
+
     /**
      * 设置一级标签名称
      */
     public static void setFristTag(String flag) {
         mTag = flag;
     }
+
     /**
      * 设置日志输出状态
      */
@@ -68,7 +70,7 @@ public class LogUtils {
      */
     private static final Object mLogLock = new Object();
 
-    private LogUtils(){
+    private LogUtils() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -187,91 +189,4 @@ public class LogUtils {
         log("---end---");
     }
 
-    /**
-     * ========================================
-     * <p>
-     * 版 权：dou361.com 版权所有 （C） 2015
-     * <p>
-     * 作 者：陈冠明
-     * <p>
-     * 个人网站：http://www.dou361.com
-     * <p>
-     * 版 本：1.0
-     * <p>
-     * 创建日期：2015/12/25
-     * <p>
-     * 描 述：日志输出类型
-     * <p>
-     * <p>
-     * 修订历史：
-     * <p>
-     * ========================================
-     */
-    public class LogType {
-
-        /** 日志输出级别NONE */
-        public static final int LEVEL_NONE = 0;
-        /** 日志输出级别V */
-        public static final int LEVEL_VERBOSE = 1;
-        /** 日志输出级别D */
-        public static final int LEVEL_DEBUG = 2;
-        /** 日志输出级别I */
-        public static final int LEVEL_INFO = 3;
-        /** 日志输出级别W */
-        public static final int LEVEL_WARN = 4;
-        /** 日志输出级别E */
-        public static final int LEVEL_ERROR = 5;
-
-    }
-
-    /**
-     * ========================================
-     * <p>
-     * 版 权：dou361.com 版权所有 （C） 2015
-     * <p>
-     * 作 者：陈冠明
-     * <p>
-     * 个人网站：http://www.dou361.com
-     * <p>
-     * 版 本：1.0
-     * <p>
-     * 创建日期：2015/11/11
-     * <p>
-     * 描 述：打印日志的LogUtils的包装类，打印信息中包含其对应的类名称
-     * <p>
-     * <p>
-     * 修订历史：
-     * <p>
-     * ========================================
-     */
-    public static class LogTagName implements Serializable {
-
-        /**
-         *
-         */
-        private static final long serialVersionUID = -765691622218959750L;
-
-        /** 二级Tag */
-        private String secondTag;
-
-        public void setSecondTag(String secondTag){
-            this.secondTag = secondTag;
-        }
-
-        /** 根据当前级别mDebuggable的形式输出LOG */
-        public void log(String msg) {
-            LogUtils.log(secondTag + msg);
-        }
-
-        /** 根据当前级别mDebuggable的形式输出LOG */
-        public void log(Throwable e) {
-            LogUtils.log(secondTag, e);
-        }
-
-        /** 根据当前级别mDebuggable的形式输出LOG */
-        public void log(String msg, Throwable e) {
-            LogUtils.log(secondTag + msg, e);
-        }
-
-    }
 }

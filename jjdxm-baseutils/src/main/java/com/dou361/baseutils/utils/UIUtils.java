@@ -79,6 +79,13 @@ public class UIUtils {
     }
 
     /**
+     * 获得填充器
+     */
+    public static View inflate(int resId,ViewGroup root) {
+        return LayoutInflater.from(getContext()).inflate(resId, root,false);
+    }
+
+    /**
      * 获取资源对象
      */
     public static Resources getResources() {

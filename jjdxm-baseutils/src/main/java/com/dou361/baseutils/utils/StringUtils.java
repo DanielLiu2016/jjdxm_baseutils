@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,27 +87,6 @@ public class StringUtils {
     }
 
     /**
-     * 格式化double数据保留两位小数点
-     */
-    public static String formatNumber(double value) {
-        double value1 = Math.round(value * 10) * 0.1;
-        String bb = "" + value1;
-        String result = bb;
-        String[] aar = bb.split("\\.");
-        if (aar.length == 1) {
-            result = aar[0] + ".0";
-        } else if (aar.length > 1) {
-            String str1 = aar[1];
-            if (str1.length() == 1) {
-                result = aar[0] + "." + str1;
-            } else {
-                result = aar[0] + "." + str1.substring(2);
-            }
-        }
-        return result + "";
-    }
-
-    /**
      * 格式化double数据，并保留两位小数，整数则不补全0.00
      */
     public static String formatExclueIntNumber(double value) {
@@ -150,6 +130,59 @@ public class StringUtils {
             }
         }
         return result + "";
+    }
+
+    /**
+     * 格式化double数据，并保留两位小数，整数则不补全0.00
+     */
+    public static String formatExclueIntNumber1(double value) {
+        double value1 = Math.round(value * 100) * 0.01;
+        String bb = "" + value;
+        String result = bb;
+        String[] aar = bb.split("\\.");
+        if (aar.length == 1) {
+            result = aar[0] + "";
+        } else if (aar.length > 1) {
+            String str1 = aar[1];
+            if (str1.length() == 1) {
+                result = aar[0] + "." + str1;
+            } else {
+                result = aar[0] + "." + str1.substring(0, 2);
+            }
+        }
+        return result + "";
+    }
+
+    /**
+     * 格式化double数据，并保留两位小数，整数也补全0.00
+     */
+    public static String formatInclueIntNumber1(double value) {
+        double value1 = Math.round(value * 100) * 0.01;
+        String bb = "" + value1;
+        String result = bb;
+        String[] aar = bb.split("\\.");
+        if (aar.length == 1) {
+            result = aar[0] + ".00";
+        } else if (aar.length > 1) {
+            String str1 = aar[1];
+            if (str1.length() == 1) {
+                result = aar[0] + "." + str1;
+            } else {
+                result = aar[0] + "." + str1.substring(0, 2);
+            }
+        }
+        return result + "";
+    }
+
+    /**
+     * 获取随机数
+     */
+    public static int getRandomNumber(int num) {
+        int result;
+        Random rd = new Random();
+        int tem = (int) Math.pow(10, num);
+        result = tem + rd.nextInt(tem);
+        return result;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.dou361.jjdxm_baseutils;
 import android.app.Application;
 import android.os.Handler;
 
+import com.dou361.baseutils.utils.LogType;
 import com.dou361.baseutils.utils.LogUtils;
 import com.dou361.baseutils.utils.UtilsManager;
 
@@ -32,6 +33,6 @@ public class BaseApplication extends Application{
         super.onCreate();
         UtilsManager.init(this, "",new Handler(),Thread.currentThread());
         UtilsManager.getInstance().setDebugEnv(true);
-        UtilsManager.getInstance().setLogLevel(LogUtils.LogType.LEVEL_ERROR);
+        UtilsManager.getInstance().setLogLevel(LogType.LEVEL_ERROR);
     }
 }
