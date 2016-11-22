@@ -1,5 +1,7 @@
 package com.dou361.baseutils.utils;
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -102,7 +104,7 @@ public class DateUtils {
      * 获取当前分的毫秒值忽略秒值 yyyy-mm-dd HH:mm
      */
     public static long getCurrentMinuteTimeMillis() {
-        return (long) getDate(DateType.DATETIME, (Date) getDate(DateType.sdf_yyyy_MM_dd_HH_mm, new Date()));
+        return (long) getDate(DateType.DATETIME, (Date) getDate(DateType.DATE, DateType.sdf_yyyy_MM_dd_HH_mm, new Date()));
     }
 
     /**
@@ -173,6 +175,81 @@ public class DateUtils {
             mWay = "六";
         }
         return "星期" + mWay;
+    }
+
+
+    /**
+     * 获取今天的日期
+     *
+     * @return
+     */
+    @SuppressLint("SimpleDateFormat")
+    public static String getToday() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
+
+    /**
+     * 获取当天的年份
+     *
+     * @return
+     */
+
+    public static String getTodayYear() {
+        String today = getToday();
+        String year = today.substring(0, 4);
+        return year;
+    }
+
+    /**
+     * 获取当前日期的月数的位置
+     *
+     * @return
+     */
+    public static String getTodayMonth() {
+        String today = getToday();
+        String month = today.substring(5, 7);
+        return month;
+    }
+
+    /**
+     * 获取当前日期的天数的日子
+     *
+     * @return
+     */
+    public static String getTodayDay() {
+        String today = getToday();
+        String day = today.substring(8, 10);
+        return day;
+    }
+
+    /**
+     * 获取当前小时
+     */
+    public static String getTodayHour() {
+        String today = getToday();
+        String hour = today.substring(12, 14);
+        return hour;
+    }
+
+    /**
+     * 获取当前分钟
+     */
+    public static String getTodayMinute() {
+        String today = getToday();
+        String minute = today.substring(15, 17);
+        return minute;
+    }
+
+    /**
+     * 获取当前秒
+     */
+    public static String getTodaySecond() {
+        String today = getToday();
+        String second = today.substring(18, 20);
+        return second;
     }
 
 }
