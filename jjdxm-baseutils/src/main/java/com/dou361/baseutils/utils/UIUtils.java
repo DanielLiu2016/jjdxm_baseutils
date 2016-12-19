@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -19,6 +18,11 @@ import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.dou361.baseutils.listener.OnMultiClickListener;
+import com.dou361.baseutils.listener.OnNoDoubleClickListener;
+
+import java.util.Calendar;
 
 public class UIUtils {
 
@@ -81,8 +85,8 @@ public class UIUtils {
     /**
      * 获得填充器
      */
-    public static View inflate(int resId,ViewGroup root) {
-        return LayoutInflater.from(getContext()).inflate(resId, root,false);
+    public static View inflate(int resId, ViewGroup root) {
+        return LayoutInflater.from(getContext()).inflate(resId, root, false);
     }
 
     /**
@@ -526,9 +530,17 @@ public class UIUtils {
     }
 
     /**
+     * 双击
+     */
+    public static void setOnDoubleClickListener(final long clickDurationTime, final View view, final OnMultiClickListener l) {
+        setOnMultiClickListener(2, clickDurationTime, view, l);
+    }
+
+
+    /**
      * 设置多击事件 @params clickTimes 多击次数 @params view 多击view @params l 多击完成响应的监听
      */
-    public static void setOnMultiClickListener(final int clickTimes, final View view, final OnMultiClickListener l) {
+    public static void setOnMultiClickListener(final int clickTimes, final long clickDurationTime, final View view, final OnMultiClickListener l) {
 
         view.setOnClickListener(new View.OnClickListener() {
             /**
@@ -536,23 +548,55 @@ public class UIUtils {
              */
             long[] mHits = new long[clickTimes];
 
+            private int countContinue(long[] mHits) {
+                int times = 0;
+                for (int i = 0; i < mHits.length; i++) {
+                    if (mHits[i] <= 0) {
+                        times++;
+                    }
+                }
+                return times;
+            }
+
             @Override
             public void onClick(View v) {
-                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 600)) {
-                    l.onMultiClick(view);
+                if (l != null) {
+                    System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
+                    mHits[mHits.length - 1] = currentTime;
+                    if (mHits[0] >= (currentTime - clickDurationTime)) {
+                        l.onFinishClick(view);
+                    } else {
+                        l.onContinueClick(view, countContinue(mHits), clickTimes);
+                    }
+                }
+            }
+
+
+        });
+
+    }
+
+    /**
+     * 防止多击事件,指定时间内多次点击触发单次 @params clickDurationTime 指定时间内触发单次 @params view 多击view @params l 多击完成响应的监听
+     */
+    public static void setOnNoDoubleClickListener(final long clickDurationTime, final View view, final OnNoDoubleClickListener l) {
+
+        view.setOnClickListener(new View.OnClickListener() {
+
+            private long lastClickTime = 0;
+
+            @Override
+            public void onClick(View view) {
+                long currentTime = Calendar.getInstance().getTimeInMillis();
+                if ((currentTime - lastClickTime) > clickDurationTime) {
+                    lastClickTime = currentTime;
+                    l.onNoDoubleClick(view);
                 }
             }
         });
 
     }
 
-    /**
-     * 多击事件的监听
-     */
-    public interface OnMultiClickListener {
-        void onMultiClick(View v);
-    }
 
 }

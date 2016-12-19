@@ -52,4 +52,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':jjdxm-baseutils')
     compile rootProject.ext.jjdxm_v7
+    //注解
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

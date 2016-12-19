@@ -13,6 +13,24 @@
 
 
     <Button
+        android:id="@+id/btn_double"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="双击触发"/>
+
+    <Button
+        android:id="@+id/btn_mulit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="多击触发"/>
+
+    <Button
+        android:id="@+id/btn_nodouble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="指定时间多击触发单次"/>
+
+    <Button
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
