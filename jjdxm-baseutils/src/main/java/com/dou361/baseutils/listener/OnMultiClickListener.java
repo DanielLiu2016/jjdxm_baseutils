@@ -20,4 +20,5 @@ public interface OnMultiClickListener {
      * 多击事件的监听
      */
     void onFinishClick(View v);
+
 }

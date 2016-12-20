@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
                 });
                 break;
             case R.id.btn_mulit:
-                UIUtils.setOnMultiClickListener(5, 1000, view, new OnMultiClickListener() {
+                UIUtils.setOnMultiClickListener(5, 2000, view, new OnMultiClickListener() {
                     @Override
                     public void onContinueClick(View v, int remainTimes, int sumTimes) {
                         showToast("还要点击" + remainTimes + "次进入特殊模式");
@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
                 });
                 break;
             case R.id.btn_nodouble:
-                UIUtils.setOnNoDoubleClickListener(1000, view, new OnNoDoubleClickListener() {
+                UIUtils.setOnNoDoubleClickListener(2000, view, new OnNoDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
                         showToast("onFinishClick");

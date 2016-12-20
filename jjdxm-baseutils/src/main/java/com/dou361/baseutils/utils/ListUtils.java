@@ -47,5 +47,20 @@ public class ListUtils {
 		}
 	}
 
+	/** 将集合按字符串输出 */
+	public static String listToString(List<Integer> ids) {
+		if (ids == null || ids.size() <= 0) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ids.size(); i++) {
+			if (sb.length() > 0) {
+				sb.append(",");
+			}
+			sb.append(ids.get(i));
+		}
+		return sb.toString();
+	}
+
 
 }

@@ -34,6 +34,9 @@ public class KeyBoardUtils {
      * 隐藏键盘
      */
     public static void hideKeyboard(View view) {
+        if (view == null) {
+            return;
+        }
         InputMethodManager imm = (InputMethodManager) UtilsManager.getInstance().getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
@@ -42,6 +45,9 @@ public class KeyBoardUtils {
      * 显示键盘
      */
     public static void showKeyboard(View view) {
+        if (view == null) {
+            return;
+        }
         InputMethodManager imm = (InputMethodManager) UtilsManager.getInstance().getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
