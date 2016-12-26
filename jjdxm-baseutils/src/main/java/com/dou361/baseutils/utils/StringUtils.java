@@ -65,8 +65,25 @@ public class StringUtils {
      * 字符串转换为int整形
      */
     public static int convertToInt(String str) {
+        if (str == null || "".equals(str)) {
+            return 0;
+        }
         try {
-            return Integer.parseInt(str);
+            return Integer.valueOf(str).intValue();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * 字符串转换为double
+     */
+    public static double convertToDouble(String str) {
+        if (str == null || "".equals(str)) {
+            return 0;
+        }
+        try {
+            return Double.valueOf(str).doubleValue();
         } catch (Exception e) {
             return 0;
         }
@@ -91,7 +108,7 @@ public class StringUtils {
      */
     public static String formatExclueIntNumber(double value) {
         double value1 = Math.round(value * 100) * 0.01;
-        String bb = "" + value;
+        String bb = "" + value1;
         String result = bb;
         String[] aar = bb.split("\\.");
         if (aar.length == 1) {
@@ -137,7 +154,7 @@ public class StringUtils {
      */
     public static String formatExclueIntNumber1(double value) {
         double value1 = Math.round(value * 100) * 0.01;
-        String bb = "" + value;
+        String bb = "" + value1;
         String result = bb;
         String[] aar = bb.split("\\.");
         if (aar.length == 1) {

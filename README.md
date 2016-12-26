@@ -41,6 +41,7 @@ or Gradle:
 
 历史版本：
 
+    compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.6'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.5'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.4'
 	compile 'com.dou361.baseutils:jjdxm-baseutils:1.0.3'
@@ -55,11 +56,7 @@ jjdxm-baseutils requires at minimum Java 9 or Android 2.3.
 
 ## Proguard ##
 
-根据你的混淆器配置和使用，您可能需要在你的proguard文件内配置以下内容：
-
-	-keep com.dou361.baseutils.** {
-   		*;
-	}
+类库中使用consumerProguardFiles属性，它指定了编译时，库自动引入的混淆规则。也就是说应用打包时候会自动的寻找库里的混淆文件，不需要手工配置了。
 
 
 [AndroidStudio代码混淆注意的问题][minify]
@@ -74,7 +71,7 @@ jjdxm-baseutils requires at minimum Java 9 or Android 2.3.
 	/** 设置debug模式，默认为false为正式环境不输出日志 */
     UtilsManager.getInstance().setDebugEnv(true);
 	/** 设置日志输出等级 */
-    UtilsManager.getInstance().setLogLevel(LogUtils.LogType.LEVEL_ERROR);
+    UtilsManager.getInstance().setLogLevel(LogType.LEVEL_ERROR);
 
 
 
@@ -297,6 +294,8 @@ muteAudioFocus(Context, boolean): boolean 开启或者关闭后台多媒体
 ## More Actions ##
 
 ## ChangeLog ##
+
+2016.12.26 1.0.6版本发布，StringUtils中添加了String数据转int/double，UIUtils中添加了双击退出，多击步骤时间和指定时间防止点击过快点击事件
 
 2016.11.16 1.0.5版本发布，StringUtils中添加了double数据的格式化，随机数的获取，DateUtils、LogUtils、SPUtils把内部类移除，使用外部类
 

@@ -19,8 +19,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dou361.baseutils.listener.OnDoubleClickListener;
 import com.dou361.baseutils.listener.OnMultiClickListener;
-import com.dou361.baseutils.listener.OnNoDoubleClickListener;
 
 public class UIUtils {
 
@@ -527,102 +527,73 @@ public class UIUtils {
         listView.setLayoutParams(params);
     }
 
+
+    /**
+     * 总共点击次数
+     */
+    private static int mSumTimes = 0;
+    /**
+     * 当前点击次数
+     */
+    private static int mCurrentClickTimes = 0;
+    /**
+     * 上次点击时间
+     */
+    private static long mLastClickTime = 0;
+    /**
+     * 防止点击过快使用的时间间隔
+     */
+    private static long mClickDurationTime = 0;
+
     /**
      * 双击
      */
-    public static void setOnDoubleClickListener(final long clickDurationTime, final View view, final OnMultiClickListener l) {
-        setOnMultiClickListener(2, clickDurationTime, view, l);
+    public static void setOnDoubleClickListener(long clickDurationTime, OnDoubleClickListener l) {
+        mClickDurationTime = clickDurationTime;
+        long time = System.currentTimeMillis();
+        long timeD = time - mLastClickTime;
+        if (timeD > mClickDurationTime) {
+            mLastClickTime = time;
+            if (l != null) {
+                l.onContinueClick();
+            }
+        } else {
+            if (l != null) {
+                l.onFinishClick();
+            }
+        }
     }
-
 
     /**
      * 设置多击事件 @params clickTimes 多击次数 @params view 多击view @params l 多击完成响应的监听
      */
-    public static void setOnMultiClickListener(int clickTimes, long clickDurationTime, View view, OnMultiClickListener l) {
-        mClickTimes = clickTimes;
-        mHits = new long[mClickTimes];
-        mClickDurationTime = clickDurationTime;
-        mMultlistener = l;
-        if (view != null) {
-            view.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    onMultiClick(v);
-                }
-
-            });
+    public static void setOnMultiClickListener(int sumTimes, OnMultiClickListener l) {
+        mSumTimes = sumTimes;
+        if (mCurrentClickTimes < mSumTimes - 1) {
+            mCurrentClickTimes++;
+            if (l != null) {
+                l.onContinueClick(mSumTimes - mCurrentClickTimes, mSumTimes);
+            }
+        } else {
+            if (l != null) {
+                l.onFinishClick();
+            }
+            mCurrentClickTimes = 0;
         }
-
     }
 
     /**
-     * 防止多击事件,指定时间内多次点击触发单次 @params clickDurationTime 指定时间内触发单次 @params view 多击view @params l 多击完成响应的监听
+     * 判断是否是非快速点击
      */
-    public static void setOnNoDoubleClickListener(long clickDurationTime, View view, OnNoDoubleClickListener l) {
-        mClickDurationTime = clickDurationTime;
-        mNoDoublelistener = l;
-        if (view != null) {
-            view.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    onNoDoubleClick(view);
-                }
-            });
+    public static boolean isNoFastDoubleClick(long clickDurationTime) {
+        long time = System.currentTimeMillis();
+        long timeD = time - mLastClickTime;
+        if (0 < timeD && timeD < clickDurationTime) {
+            return false;
         }
+        mLastClickTime = time;
+        return true;
 
-    }
-
-    /**
-     * 配置存储时间的数组
-     */
-    private static long[] mHits;
-    private static long mLastClickTime = 0;
-    private static int mClickTimes = 0;
-    private static long mClickDurationTime = 0;
-    private static OnNoDoubleClickListener mNoDoublelistener;
-    private static OnMultiClickListener mMultlistener;
-
-    private static void onMultiClick(View view) {
-        if (mMultlistener != null) {
-            System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-            long currentTime = System.currentTimeMillis();
-            mHits[mHits.length - 1] = currentTime;
-            if (currentTime - mHits[0] < mClickDurationTime) {
-                int temp = countContinue(mHits);
-                if (temp == mClickTimes) {
-                    mMultlistener.onFinishClick(view);
-                } else {
-                    mMultlistener.onContinueClick(view, temp, mClickTimes);
-                }
-            } else {
-                /**超时了*/
-                for (int i = 0; i < mHits.length; i++) {
-                    mHits[i] = 0;
-                }
-            }
-        }
-    }
-
-    private static void onNoDoubleClick(View view) {
-        long currentTime = System.currentTimeMillis();
-        if ((currentTime - mLastClickTime) > mClickDurationTime) {
-            mLastClickTime = currentTime;
-            if (mNoDoublelistener != null) {
-                mNoDoublelistener.onNoDoubleClick(view);
-            }
-        }
-    }
-
-    private static int countContinue(long[] mHits) {
-        int times = 0;
-        for (int i = 0; i < mHits.length; i++) {
-            if (mHits[i] <= 0) {
-                times++;
-            }
-        }
-        return times;
     }
 
 

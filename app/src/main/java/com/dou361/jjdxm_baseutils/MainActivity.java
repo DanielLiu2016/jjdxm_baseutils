@@ -7,8 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dou361.baseutils.listener.OnDoubleClickListener;
 import com.dou361.baseutils.listener.OnMultiClickListener;
-import com.dou361.baseutils.listener.OnNoDoubleClickListener;
 import com.dou361.baseutils.utils.DateType;
 import com.dou361.baseutils.utils.DateUtils;
 import com.dou361.baseutils.utils.SPUtils;
@@ -43,38 +43,35 @@ public class MainActivity extends Activity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_double:
-                UIUtils.setOnDoubleClickListener(1000, view, new OnMultiClickListener() {
+                UIUtils.setOnDoubleClickListener(2000, new OnDoubleClickListener() {
                     @Override
-                    public void onContinueClick(View v, int remainTimes, int sumTimes) {
+                    public void onContinueClick() {
                         showToast("再点击一次退出");
                     }
 
                     @Override
-                    public void onFinishClick(View v) {
+                    public void onFinishClick() {
                         showToast("onFinishClick");
                     }
                 });
                 break;
             case R.id.btn_mulit:
-                UIUtils.setOnMultiClickListener(5, 2000, view, new OnMultiClickListener() {
+                UIUtils.setOnMultiClickListener(5, new OnMultiClickListener() {
                     @Override
-                    public void onContinueClick(View v, int remainTimes, int sumTimes) {
+                    public void onContinueClick(int remainTimes, int sumTimes) {
                         showToast("还要点击" + remainTimes + "次进入特殊模式");
                     }
 
                     @Override
-                    public void onFinishClick(View v) {
+                    public void onFinishClick() {
                         showToast("onFinishClick");
                     }
                 });
                 break;
             case R.id.btn_nodouble:
-                UIUtils.setOnNoDoubleClickListener(2000, view, new OnNoDoubleClickListener() {
-                    @Override
-                    public void onNoDoubleClick(View v) {
-                        showToast("onFinishClick");
-                    }
-                });
+                if (UIUtils.isNoFastDoubleClick(2000)) {
+                    showToast("onFinishClick");
+                }
                 break;
             case R.id.btn:
                 break;
