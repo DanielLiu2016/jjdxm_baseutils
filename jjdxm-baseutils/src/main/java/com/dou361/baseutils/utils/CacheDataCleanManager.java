@@ -28,6 +28,15 @@ public class CacheDataCleanManager {
     }
 
     /**
+     * 清除本应用webview所有数据库(/data/data/com.xxx.xxx/databases) * * @param context
+     */
+    public static void cleanWebDatabases(Context context) {
+        FileUtils.deleteFile("/data/data/" + context.getPackageName() + "/databases/webview.db");
+        FileUtils.deleteFile("/data/data/" + context.getPackageName() + "/databases/webviewCache.db");
+        FileUtils.deleteFile("/data/data/" + context.getPackageName() + "/databases/webviewCookiesChromium.db");
+    }
+
+    /**
      * * 清除本应用SharedPreference(/data/data/com.xxx.xxx/shared_prefs) * * @param
      * context
      */
@@ -88,7 +97,6 @@ public class CacheDataCleanManager {
     public static void cleanApplicationPartData(Context context, String... filepath) {
         cleanInternalCache(context);
         cleanExternalCache(context);
-        cleanSharedPreference(context);
         cleanFiles(context);
         for (String filePath : filepath) {
             cleanCustomCache(filePath);
