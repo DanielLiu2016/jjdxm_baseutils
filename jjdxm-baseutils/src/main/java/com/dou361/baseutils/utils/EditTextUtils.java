@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
  * <p>
  * 版 权：dou361 版权所有 （C） 2015
  * <p>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p>
  * 个人网站：http://www.dou361.com
  * <p>
@@ -30,11 +30,16 @@ import java.io.UnsupportedEncodingException;
  */
 public class EditTextUtils {
 
+    private EditTextUtils() {
+    }
+
     public static void setLengthFilter(EditText editText, int chinaMax, Context context) {
         editText.addTextChangedListener(new MaxLengthWatcher(chinaMax, editText, context));
     }
 
-    /** 判断是否是输入法的表情 */
+    /**
+     * 判断是否是输入法的表情
+     */
     public static boolean isEmojiCharacter(char codePoint) {
         return !((codePoint == 0x0) ||
                 (codePoint == 0x9) ||

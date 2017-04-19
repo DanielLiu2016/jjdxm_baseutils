@@ -1,12 +1,11 @@
 package com.dou361.baseutils.utils;
 
-import java.io.Serializable;
 /**
  * ========================================
  * <p/>
  * 版 权：dou361.com 版权所有 （C） 2015
  * <p/>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p/>
  * 个人网站：http://www.dou361.com
  * <p/>
@@ -21,12 +20,7 @@ import java.io.Serializable;
  * <p/>
  * ========================================
  */
-public class LogTagName implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = -765691622218959750L;
+public class LogTagName {
 
     /**
      * 二级Tag

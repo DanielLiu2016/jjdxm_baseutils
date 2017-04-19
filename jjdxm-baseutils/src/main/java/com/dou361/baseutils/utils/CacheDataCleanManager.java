@@ -7,10 +7,30 @@ import java.io.File;
 import java.math.BigDecimal;
 
 /**
- * @author jjdxm 2015-10-9 下午1:55:56 说明 本应用数据清除管理器 描 述:
- *         主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
+ * ========================================
+ * <p>
+ * 版 权：dou361.com 版权所有 （C） 2015
+ * <p>
+ * 作 者：chenguanming
+ * <p>
+ * 个人网站：http://www.dou361.com
+ * <p>
+ * 版 本：1.0
+ * <p>
+ * 创建日期：2017/4/19 23:19
+ * <p>
+ * 描 述：本应用数据清除管理器
+ * 主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
+ * <p>
+ * <p>
+ * 修订历史：
+ * <p>
+ * ========================================
  */
 public class CacheDataCleanManager {
+
+    private CacheDataCleanManager() {
+    }
 
     /**
      * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache) * * @param context

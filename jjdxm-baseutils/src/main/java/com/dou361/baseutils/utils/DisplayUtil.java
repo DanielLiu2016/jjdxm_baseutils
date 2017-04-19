@@ -5,6 +5,26 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ * ========================================
+ * <p>
+ * 版 权：dou361.com 版权所有 （C） 2015
+ * <p>
+ * 作 者：chenguanming
+ * <p>
+ * 个人网站：http://www.dou361.com
+ * <p>
+ * 版 本：1.0
+ * <p>
+ * 创建日期：2017/4/19 23:21
+ * <p>
+ * 描 述：
+ * <p>
+ * <p>
+ * 修订历史：
+ * <p>
+ * ========================================
+ */
 public class DisplayUtil {
 
     public static int SCREEN_WIDTH_PIXELS;
@@ -12,6 +32,9 @@ public class DisplayUtil {
     public static float SCREEN_DENSITY;
     public static int SCREEN_WIDTH_DP;
     public static int SCREEN_HEIGHT_DP;
+
+    private DisplayUtil() {
+    }
 
     public static void init(Context context) {
         if (context == null) {

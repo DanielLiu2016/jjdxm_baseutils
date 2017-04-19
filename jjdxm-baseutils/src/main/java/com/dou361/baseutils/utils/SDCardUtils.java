@@ -8,9 +8,9 @@ import java.io.File;
 /**
  * ========================================
  * <p>
- * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
+ * 版 权：dou361 版权所有 （C） 2015
  * <p>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p>
  * 个人网站：http://www.dou361.com
  * <p>
@@ -28,7 +28,6 @@ import java.io.File;
 public class SDCardUtils {
 
     private SDCardUtils() {
-        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**

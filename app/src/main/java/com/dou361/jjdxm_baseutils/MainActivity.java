@@ -20,7 +20,26 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * ========================================
+ * <p>
+ * 版 权：dou361.com 版权所有 （C） 2015
+ * <p>
+ * 作 者：chenguanming
+ * <p>
+ * 个人网站：http://www.dou361.com
+ * <p>
+ * 版 本：1.0
+ * <p>
+ * 创建日期：2017/4/19 23:23
+ * <p>
+ * 描 述：
+ * <p>
+ * <p>
+ * 修订历史：
+ * <p>
+ * ========================================
+ */
 public class MainActivity extends Activity {
 
     @Bind(R.id.et_number)
@@ -33,8 +52,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        SPUtils.putData(this, "ceshi", "1992");
-        SPUtils.spTagName("ming").putData(this, "ceshi", "1992");
+        SPUtils.putData("ceshi", "1992");
+        SPUtils.spTagName("ming").putData("ceshi", "1992");
         DateUtils.getDate(DateType.sdf_yyyy_MM_dd, new Date());
 
     }

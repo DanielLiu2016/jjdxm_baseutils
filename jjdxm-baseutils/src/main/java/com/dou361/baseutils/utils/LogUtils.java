@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * ========================================
  * <p>
- * 版 权：jjdxmashl 版权所有 （C） 2015
+ * 版 权：dou361.com 版权所有 （C） 2015
  * <p>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p>
  * 个人网站：http://www.dou361.com
  * <p>
@@ -71,7 +71,6 @@ public class LogUtils {
     private static final Object mLogLock = new Object();
 
     private LogUtils() {
-        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**

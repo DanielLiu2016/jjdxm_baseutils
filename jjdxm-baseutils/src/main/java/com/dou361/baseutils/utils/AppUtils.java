@@ -1,4 +1,4 @@
-package com.dou361.baseutils.listener;
+package com.dou361.baseutils.utils;
 
 /**
  * ========================================
@@ -11,24 +11,16 @@ package com.dou361.baseutils.listener;
  * <p>
  * 版 本：1.0
  * <p>
- * 创建日期：2017/4/19 23:17
+ * 创建日期：2016/3/21 11:36
  * <p>
- * 描 述：双击退出
+ * 描 述：
  * <p>
  * <p>
  * 修订历史：
  * <p>
  * ========================================
  */
-public interface OnDoubleClickListener {
-
-    /**
-     * 多击事件的监听
-     */
-    void onFinishClick();
-
-    /**
-     * 没完成点击前触发的点击
-     */
-    void onContinueClick();
+public class AppUtils {
+    private AppUtils() {
+    }
 }

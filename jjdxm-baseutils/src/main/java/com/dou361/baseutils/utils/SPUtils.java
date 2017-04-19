@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  * <p>
  * 版 权：dou361.com 版权所有 （C） 2015
  * <p>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p>
  * 个人网站：http://www.dou361.com
  * <p>
@@ -48,7 +48,6 @@ public class SPUtils {
     private static final String SP_NAME = "config";
 
     private SPUtils() {
-        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
@@ -83,15 +82,22 @@ public class SPUtils {
     /**
      * 使用默认文件添加键的内容
      */
+    public static void putData(String key, Object data) {
+        putData(UIUtils.getContext(), SP_NAME, key, data);
+    }
+
+    /**
+     * 使用默认文件添加键的内容
+     */
     public static void putData(Context context, String key, Object data) {
         putData(context, SP_NAME, key, data);
     }
 
     /**
-     * 使用默认文件获得键的内容
+     * 使用默认文件添加键的内容
      */
-    public static Object getData(Context context, String key, Object defValue) {
-        return getData(context, SP_NAME, key, defValue);
+    public static void putData(String spName, String key, Object data) {
+        putData(UIUtils.getContext(), spName, key, data);
     }
 
     /**
@@ -120,6 +126,27 @@ public class SPUtils {
     }
 
     /**
+     * 使用默认文件获得键的内容
+     */
+    public static Object getData(String key, Object defValue) {
+        return getData(UIUtils.getContext(), SP_NAME, key, defValue);
+    }
+
+    /**
+     * 使用默认文件获得键的内容
+     */
+    public static Object getData(Context context, String key, Object defValue) {
+        return getData(context, SP_NAME, key, defValue);
+    }
+
+    /**
+     * 使用默认文件获得键的内容
+     */
+    public static Object getData(String spName, String key, Object defValue) {
+        return getData(UIUtils.getContext(), spName, key, defValue);
+    }
+
+    /**
      * 自定义文件获得键的内容
      */
     public static Object getData(Context context, String spName, String key, Object defValue) {
@@ -145,6 +172,12 @@ public class SPUtils {
         return null;
     }
 
+    /**
+     * 使用默认文件删除某个键的内容
+     */
+    public static void remove(String key) {
+        remove(UIUtils.getContext(), key);
+    }
 
     /**
      * 使用默认文件删除某个键的内容
@@ -154,10 +187,10 @@ public class SPUtils {
     }
 
     /**
-     * 使用默认文件清空所有的键值对
+     * 自定义文件删除某个键的内容
      */
-    public static void clearAll(Context context) {
-        clearAll(context, SP_NAME);
+    public static void remove(String spName, String key) {
+        remove(UIUtils.getContext(), spName, key);
     }
 
     /**
@@ -172,6 +205,27 @@ public class SPUtils {
         }
         currentSP.edit().remove(key).commit();
         currentSP = null;
+    }
+
+    /**
+     * 使用默认文件清空所有的键值对
+     */
+    public static void clearAll() {
+        clearAll(UIUtils.getContext(), SP_NAME);
+    }
+
+    /**
+     * 使用默认文件清空所有的键值对
+     */
+    public static void clearAll(Context context) {
+        clearAll(context, SP_NAME);
+    }
+
+    /**
+     * 自定义文件清空所有的键值对
+     */
+    public static void clearAll(String spName) {
+        clearAll(UIUtils.getContext(), spName);
     }
 
     /**

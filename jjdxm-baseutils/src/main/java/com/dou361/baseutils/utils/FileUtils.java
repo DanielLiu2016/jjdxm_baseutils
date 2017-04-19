@@ -18,6 +18,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * ========================================
+ * <p>
+ * 版 权：dou361.com 版权所有 （C） 2015
+ * <p>
+ * 作 者：chenguanming
+ * <p>
+ * 个人网站：http://www.dou361.com
+ * <p>
+ * 版 本：1.0
+ * <p>
+ * 创建日期：2017/4/19 23:22
+ * <p>
+ * 描 述：
+ * <p>
+ * <p>
+ * 修订历史：
+ * <p>
+ * ========================================
+ */
 public class FileUtils {
 
     public static final String ROOT_DIR = SystemUtils.getPackageName()
@@ -25,6 +45,9 @@ public class FileUtils {
     public static final String DOWNLOAD_DIR = "download";
     public static final String CACHE_DIR = "cache";
     public static final String ICON_DIR = "icon";
+
+    private FileUtils() {
+    }
 
     /**
      * 判断SD卡是否挂载

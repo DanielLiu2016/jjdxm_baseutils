@@ -7,9 +7,9 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * ========================================
  * <p/>
- * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
+ * 版 权：dou361 版权所有 （C） 2015
  * <p/>
- * 作 者：陈冠明
+ * 作 者：jjdxm
  * <p/>
  * 个人网站：http://www.dou361.com
  * <p/>
@@ -27,17 +27,23 @@ import android.view.inputmethod.InputMethodManager;
 public class KeyBoardUtils {
 
     private KeyBoardUtils() {
-        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
      * 隐藏键盘
      */
     public static void hideKeyboard(View view) {
+        hideKeyboard(UIUtils.getContext(), view);
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    public static void hideKeyboard(Context context, View view) {
         if (view == null) {
             return;
         }
-        InputMethodManager imm = (InputMethodManager) UtilsManager.getInstance().getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -45,10 +51,17 @@ public class KeyBoardUtils {
      * 显示键盘
      */
     public static void showKeyboard(View view) {
+        showKeyboard(UIUtils.getContext(), view);
+    }
+
+    /**
+     * 显示键盘
+     */
+    public static void showKeyboard(Context context, View view) {
         if (view == null) {
             return;
         }
-        InputMethodManager imm = (InputMethodManager) UtilsManager.getInstance().getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 }

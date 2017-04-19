@@ -10,9 +10,9 @@ import com.dou361.baseutils.utils.UtilsManager;
 /**
  * ========================================
  * <p/>
- * 版 权：深圳市晶网科技控股有限公司 版权所有 （C） 2015
+ * 版 权：dou361 版权所有 （C） 2015
  * <p/>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p/>
  * 个人网站：http://www.dou361.com
  * <p/>
@@ -31,8 +31,11 @@ public class BaseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        UtilsManager.init(this, "",new Handler(),Thread.currentThread());
-        UtilsManager.getInstance().setDebugEnv(true);
-        UtilsManager.getInstance().setLogLevel(LogType.LEVEL_ERROR);
+        UtilsManager.getInstance()
+                .init(this, "",new Handler(),Thread.currentThread())
+                .setFristTag("dou361")
+                .setDebugEnv(true)
+                .setLogLevel(LogType.LEVEL_ERROR)
+                .setCryptKey("this is crypt key!");
     }
 }

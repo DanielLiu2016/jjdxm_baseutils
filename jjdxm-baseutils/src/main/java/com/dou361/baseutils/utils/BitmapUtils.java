@@ -47,10 +47,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 图片操作工具包
- *
- * @author liux (http://my.oschina.net/liux)
- * @version 1.0
+ * ========================================
+ * <p>
+ * 版 权：dou361.com 版权所有 （C） 2015
+ * <p>
+ * 作 者：chenguanming
+ * <p>
+ * 个人网站：http://www.dou361.com
+ * <p>
+ * 版 本：1.0
+ * <p>
+ * 创建日期：2017/4/19 23:12
+ * <p>
+ * 描 述：图片操作工具包
+ * <p>
+ * <p>
+ * 修订历史：
+ * <p>
+ * ========================================
  */
 public class BitmapUtils {
 
@@ -74,9 +88,11 @@ public class BitmapUtils {
      */
     public static final int REQUEST_CODE_GETIMAGE_IMAGEPAVER = 3;
 
+    private BitmapUtils() {
+    }
+
     /**
      * 写图片文件 在Android系统中，文件保存在 /data/data/PACKAGE_NAME/files 目录下
-     *
      */
     public static void saveImage(Context context, String fileName, Bitmap bitmap)
             throws IOException {
@@ -99,8 +115,6 @@ public class BitmapUtils {
 
     /**
      * 写图片文件到SD卡
-     *
-     *
      */
     public static void saveImageToSD(Context ctx, String filePath,
                                      Bitmap bitmap, int quality) throws IOException {
@@ -391,7 +405,6 @@ public class BitmapUtils {
      * @param thumbfilePath  输出缩略图路径
      * @param square_size    输出图片宽度
      * @param quality        输出图片质量
-     *
      */
     public static void createImageThumbnail(Context context,
                                             String largeImagePath, String thumbfilePath, int square_size,
@@ -862,8 +875,6 @@ public class BitmapUtils {
 
     /**
      * 回收垃圾 recycle
-     *
-     * 
      */
     public static void recycle(Bitmap bitmap) {
         // 先判断是否已经回收
@@ -912,7 +923,6 @@ public class BitmapUtils {
      * rotaingImageView
      *
      * @return Bitmap
-     * 
      */
     public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
         // 旋转图片 动作
@@ -955,8 +965,6 @@ public class BitmapUtils {
 
     /**
      * 将图片转化为圆形头像
-     *
-     *
      */
     public static Bitmap toRoundBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();
@@ -1021,7 +1029,7 @@ public class BitmapUtils {
     public static Bitmap getBitmapByUri(Uri uri) {
         Bitmap mBitmap = null;
         try {
-            mBitmap = MediaStore.Images.Media.getBitmap(UtilsManager.getInstance().getAppContext().getContentResolver(), uri);
+            mBitmap = MediaStore.Images.Media.getBitmap(UIUtils.getContext().getContentResolver(), uri);
         } catch (IOException e) {
             e.printStackTrace();
         }

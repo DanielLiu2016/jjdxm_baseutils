@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * <p>
  * 版 权：dou361 版权所有 （C） 2015
  * <p>
- * 作 者：陈冠明
+ * 作 者：chenguanming
  * <p>
  * 个人网站：http://www.dou361.com
  * <p>
@@ -26,10 +26,11 @@ import java.util.regex.Pattern;
 public class RegexUtils {
 
     private RegexUtils() {
-        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    /** 根据正则表达式返还匹配结果 */
+    /**
+     * 根据正则表达式返还匹配结果
+     */
     private static boolean matcherString(String value, String strRegex) {
         Pattern p = Pattern.compile(strRegex);
         Matcher m = p.matcher(value);
@@ -81,7 +82,7 @@ public class RegexUtils {
      */
     public static Boolean matcherNumberLetter(String value) {
         String str = "^[A-Za-z0-9]+$";
-        return matcherString(value,str);
+        return matcherString(value, str);
     }
 
     /**
@@ -89,7 +90,7 @@ public class RegexUtils {
      */
     public static Boolean matcherNumber(String value) {
         String str = "^[0-9]+$";
-        return matcherString(value,str);
+        return matcherString(value, str);
     }
 
     /**
@@ -97,7 +98,7 @@ public class RegexUtils {
      */
     public static boolean matcherBankCard(String value) {
         String str = "^\\d{16,19}$|^\\d{6}[- ]\\d{10,13}$|^\\d{4}[- ]\\d{4}[- ]\\d{4}[- ]\\d{4,7}$";
-        return matcherString(value,str);
+        return matcherString(value, str);
     }
 
     /**
@@ -106,7 +107,7 @@ public class RegexUtils {
     public static boolean matcherIdCard(String value) {
         /**15位和18位身份证号码的正则表达式*/
         String str = "^(^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$)|(^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])((\\d{4})|\\d{3}[Xx])$)$";
-        return matcherString(value,str);
+        return matcherString(value, str);
     }
 
     /**
